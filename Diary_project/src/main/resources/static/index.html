@@ -15,6 +15,119 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/base.css" rel="stylesheet" />
         
+        <style>
+        .topic-box {
+		    background-color: #FFC846;
+		    height: 200px; 
+		    display: flex;
+		    justify-content: center; 
+		    align-items: center; 
+		    border: 3px solid #AE5E1A;
+		    border-radius: 15px; 
+		    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+		    text-align: center; 
+		    font-size: 1.5em;
+		    margin: 20px auto; 
+		    padding: 20px;
+		    margin-left: 400px;
+		    margin-right: 400px;
+		    width: calc(100% - 800px);
+		}
+		
+		.public-diary {
+		    text-align: center;
+		}
+		
+		h1.public-title{
+			margin-top: 100px;
+		}
+		
+		.diary-area {
+			background-color: #F9F9F9;
+			height: 400px; 
+			display: flex;
+			justify-content: center; 
+			align-items: center; 
+			border: 3px solid #A9A9A9;
+			border-radius: 15px; 
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+			text-align: center; 
+			font-size: 1.5em;
+			margin: 20px auto; 
+			padding: 20px;
+			margin-top: 10px;
+			margin-left: 400px;
+			margin-right: 400px;
+			width: calc(100% - 800px);
+		}
+		
+		
+		.public-btn {
+		    margin-top: 30px;
+		    padding: 10px 20px;
+		    background-color: #FFC846; 
+		    color: white; 
+		    text-align: center;
+		    text-decoration: none; 
+		    border-radius: 5px; 
+		    font-size: 18px; 
+		    font-weight: bold; 
+		    transition: background-color 0.3s;
+		    margin-top: 30px;
+		}
+		
+		.public-btn:hover {
+		    background-color: #FF8200;
+		}
+		
+		.My {
+		    text-align: center;
+		    margin-bottom: 200px;
+		}
+		
+		h1.my-title{
+			margin-top: 100px;
+		}
+		
+		.my-area {
+			background-color: #FFF8B5;
+			height: 400px; 
+			display: flex;
+			justify-content: center; 
+			align-items: center; 
+			border: 3px solid #A9A9A9;
+			border-radius: 15px; 
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+			text-align: center; 
+			color: #5698FF ;
+			font-size: 1.5em;
+			margin: 20px auto; 
+			padding: 20px;
+			margin-top: 10px;
+			margin-left: 400px;
+			margin-right: 400px;
+			width: calc(100% - 800px);
+		}
+		
+		
+		.my-btn {
+		    margin-top: 30px;
+		    padding: 10px 20px;
+		    background-color: #FFC846; 
+		    color: white; 
+		    text-align: center;
+		    text-decoration: none; 
+		    border-radius: 5px; 
+		    font-size: 18px; 
+		    font-weight: bold; 
+		    transition: background-color 0.3s;
+		    margin-top: 30px;
+		}
+		
+		.my-btn:hover {
+		    background-color: #FF8200;
+		}
+        </style>
     </head>
     
     <body>
@@ -45,7 +158,26 @@
         <div class="Topic">
         	<h1 class="title">떠오르는 주제가 없으신가요?</h1>
         	<h2 class="subtitle">오늘의 일기 주제</h2>
+        	<div class="topic-box">
+		            주제 추천
+		    </div>
+        </div>
         
+        <!-- Public diary -->
+        <div class="public-diary">
+        	<h1 class="public-title"> 공개일기 </h1>
+        	<div class="diary-area">
+        	</div>
+        	<a class="public-btn" href="#public">더 많은 일기 살펴보기</a>
+        </div>
+        
+        <!-- My diary -->
+        <div class="My">
+        	<h1 class="my-title">나의 일기장</h1>
+        	<div class="my-area">
+        		아직 작성한 일기가 없어요!
+        	</div>
+        	<a class="my-btn" href="#my"> 일기 쓰러 가기! </a>
         </div>
     </body>
 </html>

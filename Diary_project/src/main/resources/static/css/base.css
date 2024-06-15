@@ -77,3 +77,45 @@ h2.subtitle{
 	margin-left: 300px;
     margin-top: 40px;
 }
+
+.topic-box {
+	background-color: #FFC846;
+	height: 200px; 
+	display: flex;
+	justify-content: center; 
+	align-items: center; 
+	border: 1px solid black;
+	border-radius: 15px; 
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+	text-align: center; 
+	font-size: 1.5em;
+	margin: 20px auto; 
+	padding: 20px;
+	margin-left: 400px;
+	margin-right: 400px;
+	width: calc(100% - 800px);
+}
+
+/*공개 일기*/
+.diary-area {
+	background-color: #FFC846;
+	height: 200px; 
+	display: flex;
+	justify-content: center; 
+	align-items: center; 
+	border: 1px solid black;
+	border-radius: 15px; 
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+	text-align: center; 
+	font-size: 1.5em;
+	margin: 20px auto; 
+	padding: 20px;
+	margin-left: 400px;
+	margin-right: 400px;
+	width: calc(100% - 800px);
+}
+
+h1.public-title{
+	margin-top: 100px;
+	text-align: center;
+}
