@@ -13,121 +13,7 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/base.css" rel="stylesheet" />
-        
-        <style>
-        .topic-box {
-		    background-color: #FFC846;
-		    height: 200px; 
-		    display: flex;
-		    justify-content: center; 
-		    align-items: center; 
-		    border: 3px solid #AE5E1A;
-		    border-radius: 15px; 
-		    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
-		    text-align: center; 
-		    font-size: 1.5em;
-		    margin: 20px auto; 
-		    padding: 20px;
-		    margin-left: 400px;
-		    margin-right: 400px;
-		    width: calc(100% - 800px);
-		}
-		
-		.public-diary {
-		    text-align: center;
-		}
-		
-		h1.public-title{
-			margin-top: 100px;
-		}
-		
-		.diary-area {
-			background-color: #F9F9F9;
-			height: 400px; 
-			display: flex;
-			justify-content: center; 
-			align-items: center; 
-			border: 3px solid #A9A9A9;
-			border-radius: 15px; 
-			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
-			text-align: center; 
-			font-size: 1.5em;
-			margin: 20px auto; 
-			padding: 20px;
-			margin-top: 10px;
-			margin-left: 400px;
-			margin-right: 400px;
-			width: calc(100% - 800px);
-		}
-		
-		
-		.public-btn {
-		    margin-top: 30px;
-		    padding: 10px 20px;
-		    background-color: #FFC846; 
-		    color: white; 
-		    text-align: center;
-		    text-decoration: none; 
-		    border-radius: 5px; 
-		    font-size: 18px; 
-		    font-weight: bold; 
-		    transition: background-color 0.3s;
-		    margin-top: 30px;
-		}
-		
-		.public-btn:hover {
-		    background-color: #FF8200;
-		}
-		
-		.My {
-		    text-align: center;
-		    margin-bottom: 200px;
-		}
-		
-		h1.my-title{
-			margin-top: 100px;
-		}
-		
-		.my-area {
-			background-color: #FFF8B5;
-			height: 400px; 
-			display: flex;
-			justify-content: center; 
-			align-items: center; 
-			border: 3px solid #A9A9A9;
-			border-radius: 15px; 
-			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
-			text-align: center; 
-			color: #5698FF ;
-			font-size: 1.5em;
-			margin: 20px auto; 
-			padding: 20px;
-			margin-top: 10px;
-			margin-left: 400px;
-			margin-right: 400px;
-			width: calc(100% - 800px);
-		}
-		
-		
-		.my-btn {
-		    margin-top: 30px;
-		    padding: 10px 20px;
-		    background-color: #FFC846; 
-		    color: white; 
-		    text-align: center;
-		    text-decoration: none; 
-		    border-radius: 5px; 
-		    font-size: 18px; 
-		    font-weight: bold; 
-		    transition: background-color 0.3s;
-		    margin-top: 30px;
-		}
-		
-		.my-btn:hover {
-		    background-color: #FF8200;
-		}
-        </style>
+        <link href="css/base.css?after" rel="stylesheet" />
     </head>
     
     <body>
@@ -150,34 +36,128 @@
 				</a>
 	        </div>
 	            
-	            <a class="login-btn" href="#signup">로그인</a>
+	            <a class="login-btn" href="login.html">로그인</a>
             </div>
         </nav>
         
         <!-- Topic recommendation -->
-        <div class="Topic">
-        	<h1 class="title">떠오르는 주제가 없으신가요?</h1>
-        	<h2 class="subtitle">오늘의 일기 주제</h2>
-        	<div class="topic-box">
-		            주제 추천
-		    </div>
-        </div>
+        <header class="topic-background py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="topic-title fw-bolder">떠오르는 주제가 없으신가요?</h1>
+                    <p class="lead fw-normal mb-0">* 오늘의 일기 주제 *</p>
+                    <p class="topic-content fw-normal mb-0">일기 주제 추천(mysql 연결)</p>
+                </div>
+            </div>
+        </header>
         
         <!-- Public diary -->
-        <div class="public-diary">
-        	<h1 class="public-title"> 공개일기 </h1>
-        	<div class="diary-area">
-        	</div>
-        	<a class="public-btn" href="#public">더 많은 일기 살펴보기</a>
-        </div>
+        <section class="py-5">
+        	<div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="topic-title fw-bolder">공개 일기</h1>
+                    
+                    <div class="public-container">
+	                    <div class="rectangle">
+				            <h2 class="public-title">제목</h2>
+				            <p class="public-content">내용</p>
+				            <p class="public-author">작성자</p>
+				            <p class="public-dateweather">날짜 날씨</p>
+				            <p class="public-like"></p>
+				            <div class="like-container" data-liked="false">
+				                <span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
+				                <span class="like-count">0</span>
+				            </div>
+				        </div>
+				        
+				        <div class="rectangle">
+				            <h2 class="public-title">제목</h2>
+				            <p class="public-content">내용</p>
+				            <p class="public-author">작성자</p>
+				            <p class="public-dateweather">날짜 날씨</p>
+				            <div class="like-container" data-liked="false">
+				                <span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
+				                <span class="like-count">0</span>
+				            </div>
+				        </div>
+				        
+				        <div class="rectangle">
+				            <h2 class="public-title">제목</h2>
+				            <p class="public-content">내용</p>
+				            <p class="public-author">작성자</p>
+				            <p class="public-dateweather">날짜 날씨</p>
+				            <div class="like-container" data-liked="false">
+				                <span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
+				                <span class="like-count">0</span>
+				            </div>
+				        </div>
+				        
+				        <div class="rectangle">
+				            <h2 class="public-title">제목</h2>
+				            <p class="public-content">내용</p>
+				            <p class="public-author">작성자</p>
+				            <p class="public-dateweather">날짜 날씨</p>
+				            <div class="like-container" data-liked="false">
+				                <span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
+				                <span class="like-count">0</span>
+				            </div>
+				        </div>
+			        </div>
+                
+                	<a class="public-btn" href="#public">더 많은 일기 살펴보기</a>
+                	
+                </div>
+            </div>
+        </section>
         
         <!-- My diary -->
-        <div class="My">
-        	<h1 class="my-title">나의 일기장</h1>
-        	<div class="my-area">
-        		아직 작성한 일기가 없어요!
-        	</div>
-        	<a class="my-btn" href="#my"> 일기 쓰러 가기! </a>
-        </div>
+        <section class="my-section">
+        	<div class="my-background container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="topic-title fw-bolder">나의 일기장</h1>
+                    
+                    <div class="public-container">
+	                    <div class="rectangle">
+				            <h2 class="public-title">제목</h2>
+				            <p class="public-content">내용</p>
+				            <p class="public-author">작성자</p>
+				            <p class="public-dateweather">날짜 날씨</p>
+				        </div>
+				        
+				        <div class="rectangle">
+				            <h2 class="public-title">제목</h2>
+				            <p class="public-content">내용</p>
+				            <p class="public-author">작성자</p>
+				            <p class="public-dateweather">날짜 날씨</p>
+				        </div>
+				        
+				        <div class="rectangle">
+				            <h2 class="public-title">제목</h2>
+				            <p class="public-content">내용</p>
+				            <p class="public-author">작성자</p>
+				            <p class="public-dateweather">날짜 날씨</p>
+				        </div>
+				        
+				        <div class="rectangle">
+				            <h2 class="public-title">제목</h2>
+				            <p class="public-content">내용</p>
+				            <p class="public-author">작성자</p>
+				            <p class="public-dateweather">날짜 날씨</p>
+				        </div>
+			        </div>
+                
+                	<a class="my-btn" href="#public">일기 쓰러 가기!</a>
+                	
+                </div>
+            </div>
+        </section>
+        
+        <!-- footer -->
+        <footer class="footer-section">
+            <div class="my-background footer-container">
+            	<p class="text-center text-white">Starry Diary Project<br><br> 개발자: 전효주 </p>
+            </div>
+        </footer>
+   
     </body>
 </html>
