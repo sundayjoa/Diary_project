@@ -20,7 +20,12 @@ body{
 }
 
 
-/* 네비게이션*/
+
+
+
+
+
+
 .navbar {
   width: 100%;
   overflow: hidden;
@@ -78,7 +83,7 @@ body{
     font-size: 18px; 
     font-weight: bold; 
     transition: background-color 0.3s;
-    margin-right: 0; /* 추가 */
+    margin-right: 0;
   	margin-left: auto;
 }
 
@@ -97,7 +102,11 @@ body{
 	margin-left: auto;
 }
 
-/* 주제 추천 */
+
+
+
+
+
 .topic-background{
 	background-color: #FFF8B5;
 }
@@ -164,7 +173,10 @@ body{
 
 
 
-/*공개 일기*/
+
+
+
+
 .public-container {
 	margin-top: 40px;
     display: flex;
@@ -268,7 +280,9 @@ body{
     background-color: #FF8200;
 }
 
-/*나의 일기장*/
+
+
+
 .my-background{
 	background-color: #FFF8B5;
 }
@@ -279,7 +293,9 @@ body{
 	background-color: #FFF8B5;
 }
 
-/* 하단 */
+
+
+
 .footer-container {
 	width: 100%;
 	max-width: 100%;
@@ -293,4 +309,93 @@ body{
 	padding-top: 8rem !important;
 	padding-bottom: 8rem !important;
 	background-color: #FFF8B5;
+}
+
+
+
+/* 로그인 */
+
+.login-container {
+	--bs-gutter-x: 1.5rem;
+	--bs-gutter-y: 0;
+	width: 100%;
+	max-width: 100%;
+	padding-right: calc(var(--bs-gutter-x) * 0.5);
+	padding-left: calc(var(--bs-gutter-x) * 0.5);
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.font-1 {
+	margin-top: 30px;
+	font-size: 30px;
+	font-weight: 300;
+}
+
+.font-2 {
+	margin-top: 70px;
+	font-size: 20px;
+	font-weight: 300;
+	color: gray;
+}
+
+#username,
+#password {
+    width: 20%;
+    padding: 10px;
+    border: 4px solid #FF8200; 
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 10px;
+}
+
+#username:focus::before {
+    content: "";
+    position: absolute;
+    top: -2px; 
+    left: -2px;
+    right: -2px; 
+    bottom: -2px; 
+    border: 2px dotted yellow; 
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+#password:focus::before {
+    content: "";
+    position: absolute;
+    top: -2px; 
+    left: -2px;
+    right: -2px; 
+    bottom: -2px; 
+    border: 2px dotted yellow; 
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+.login-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #FFC846; 
+    color: white; 
+    text-align: center;
+    text-decoration: none; 
+    border: 3px solid #FF8200;
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    transition: background-color 0.3s;
+    margin-right: 0; 
+  	margin-left: auto;
+  	margin-top: 30px;
+}
+
+.login-button:hover {
+    background-color: #FF8200;
+}
+
+.membership:hover {
+    color: #FF8200;
 }
