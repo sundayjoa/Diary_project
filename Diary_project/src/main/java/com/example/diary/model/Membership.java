@@ -1,26 +1,30 @@
 package com.example.diary.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Membership {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length = 30)
+    private String id;
     
+    @Column(name = "Password", length = 50)
     private String password;
+    
+    @Column(name = "Name", length = 50)
     private String name;
+    
+    @Column(name = "email", length = 320)
     private String email;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,11 +37,11 @@ public class Membership {
         this.password = password;
     }
 
-    public String getNickname() {
+    public String getName() {
         return name;
     }
 
-    public void setNickname(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

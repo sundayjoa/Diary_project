@@ -343,7 +343,7 @@ body{
 #password,
 #name,
 #email {
-    width: 20%;
+    width: 15%;
     padding: 10px;
     border: 4px solid #FF8200; 
     border-radius: 10px;
@@ -368,8 +368,7 @@ body{
     pointer-events: none;
 }
 
-.login-button,
-.membership-button {
+.login-button {
     display: inline-block;
     padding: 5px 10px;
     background-color: #FFC846; 
@@ -393,4 +392,21 @@ body{
 
 .membership:hover {
     color: #FF8200;
+}
+
+.membership-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #FFC846; 
+    color: white; 
+    text-align: center;
+    text-decoration: none; 
+    border: 3px solid #FF8200;
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    transition: background-color 0.3s;
+    margin-right: 0; 
+  	margin-left: auto;
+  	margin-top: 20px;
 }
