@@ -34,4 +34,15 @@ public class MembershipController {
              return ResponseEntity.status(500).body("회원가입 중 오류가 발생했습니다. 상세 내용: " + e.getMessage());
          }
     }
+    
+    @GetMapping("/check-id")
+    public ResponseEntity<String> checkId(@RequestParam String id) {
+        boolean exists = membershipService.checkIdExists(id);
+        if (exists) {
+            return ResponseEntity.status(409).body("이미 존재하는 ID입니다.");
+        } else {
+            return ResponseEntity.ok("사용 가능한 ID입니다.");
+        }
+    }
+    
 }

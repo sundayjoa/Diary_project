@@ -386,7 +386,8 @@ body{
 }
 
 .login-button:hover,
-.membership-button:hover {
+.membership-button:hover,
+.idcheck-button:hover {
     background-color: #FF8200;
 }
 
@@ -396,6 +397,23 @@ body{
 
 .membership-button,
 .idcheck-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #FFC846; 
+    color: white; 
+    text-align: center;
+    text-decoration: none; 
+    border: 3px solid #FF8200;
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    transition: background-color 0.3s;
+    margin-right: 0; 
+  	margin-left: auto;
+  	margin-top: 20px;
+}
+
+.disabled-button {
     display: inline-block;
     padding: 5px 10px;
     background-color: #FFC846; 

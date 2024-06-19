@@ -105,7 +105,7 @@
 	
 	        $(document).ready(function() {
 	            $('#submit-btn').on('click', function(event) {
-	                event.preventDefault(); // 기본 폼 제출 동작을 막음
+	                event.preventDefault();
 
 	                if (!validateForm()) {
 	                    return;
@@ -126,6 +126,7 @@
 	                    success: function(response) {
 	                        console.log('Success:', response);
 	                        alert('회원가입이 성공적으로 완료되었습니다.');
+	                        window.location.href = 'index.html';
 	                    },
 	                    error: function(error) {
 	                        console.error('Error:', error);
