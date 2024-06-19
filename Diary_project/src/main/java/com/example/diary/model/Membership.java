@@ -2,13 +2,15 @@ package com.example.diary.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Membership {
     
     @Id
-    @Column(length = 30)
+    @Column(length = 30, nullable = false)
     private String id;
     
     @Column(name = "Password", length = 50)
@@ -19,6 +21,15 @@ public class Membership {
     
     @Column(name = "email", length = 320)
     private String email;
+    
+    public Membership() {}
+
+    public Membership(String id, String password, String name, String email) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+    }
 
     public String getId() {
         return id;
