@@ -416,11 +416,11 @@ body{
 .disabled-button {
     display: inline-block;
     padding: 5px 10px;
-    background-color: #FFC846; 
+    background-color: #c0c0c0; 
     color: white; 
     text-align: center;
     text-decoration: none; 
-    border: 3px solid #FF8200;
+    border: 3px solid #808080;
     border-radius: 10px; 
     font-size: 18px; 
     font-weight: bold; 
@@ -428,4 +428,18 @@ body{
     margin-right: 0; 
   	margin-left: auto;
   	margin-top: 20px;
+  	cursor: not-allowed;
+}
+
+.py-6 {
+	padding-top: 8rem !important;
+}
+
+.py-7 {
+	padding-bottom: 8rem !important;
+}
+
+.my-6 {
+	margin-top: 2rem !important;
+	margin-bottom: 2rem !important;
 }

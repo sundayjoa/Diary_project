@@ -11,14 +11,10 @@ public class MembershipService {
 
     @Autowired
     private MembershipRepository membershipRepository;
-
+    
     @Transactional
     public Membership saveMembership(Membership membership) {
         return membershipRepository.save(membership);
     }
     
-    @Transactional(readOnly = true)
-    public boolean checkIdExists(String id) {
-        return membershipRepository.existsById(id);
-    }
 }
