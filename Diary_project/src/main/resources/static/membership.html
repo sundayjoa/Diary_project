@@ -70,7 +70,7 @@
 	                </div>
 	                
 	                <div class="text-center text-white">
-	                    <button class="disabled-button" type="button" id="submit-btn">회원가입</button>
+	                    <button class="disabled-button" type="button" id="submit-btn" disabled>회원가입</button>
 	                </div>
 	            </div>
 	        </div>
@@ -78,6 +78,32 @@
 	    
 	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	    <script>
+	    
+		    function validateForm() {
+	            const password = document.getElementById('password').value;
+	            const name = document.getElementById('name').value;
+	            const email = document.getElementById('email').value;
+	            
+	            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	
+	            if (password.length <= 6) {
+	                alert('비밀번호는 6자 이상이어야 합니다.');
+	                return false;
+	            }
+	
+	            if (name.length >= 30) {
+	                alert('닉네임은 30자 미만이어야 합니다.');
+	                return false;
+	            }
+	
+	            if (!emailRegex.test(email)) {
+	                alert('유효한 이메일 형식을 입력하세요.');
+	                return false;
+	            }
+	
+	            return true;
+	        }
+
 	        $(document).ready(function() {
 	            $('#idcheck-btn').on('click', function(event) { 
 	                event.preventDefault();
@@ -97,8 +123,8 @@
 	                    success: function(response) {
 	                        alert(response);
 	                        if (response === "사용 가능한 ID입니다.") {
-	                        	$('#idcheck-btn').removeClass('idcheck-button').addClass('disabled-button');
-	                            $('#submit-btn').removeClass('disabled-button').addClass('membership-button');
+	                        	$('#idcheck-btn').removeClass('idcheck-button').addClass('disabled-button').prop('disabled', true);
+	                            $('#submit-btn').removeClass('disabled-button').addClass('membership-button').prop('disabled', false);
 	                        } else {
 	                        }
 	                    },
@@ -111,10 +137,36 @@
 	            
 	            $('#submit-btn').on('click', function(event) {
 	                event.preventDefault();
-	                alert('회원가입 버튼이 클릭되었습니다.');
-	                
+
+	                if (!validateForm()) {
+	                    return;
+	                }
+
+	                var formData = {
+	                    id: $('#userid').val(),
+	                    password: $('#password').val(),
+	                    name: $('#name').val(),
+	                    email: $('#email').val()
+	                };
+
+	                $.ajax({
+	                    type: 'POST',
+	                    url: '/api/membership/register',
+	                    data: JSON.stringify(formData),
+	                    contentType: 'application/json; charset=utf-8',
+	                    success: function(response) {
+	                        console.log('Success:', response);
+	                        alert('회원가입이 성공적으로 완료되었습니다.');
+	                        window.location.href = 'index.html';
+	                    },
+	                    error: function(error) {
+	                        console.error('Error:', error);
+	                        alert('회원가입 중 오류가 발생했습니다.');
+	                    }
+	                });
 	            });
 	        });
+
 	    </script>
 
      </body>
