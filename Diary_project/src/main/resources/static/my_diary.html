@@ -207,12 +207,25 @@
 	        }
 	        
 	     	// 주제 추천 폼 제출
-	        document.getElementById('recommendationForm').onsubmit = function(event) {
-	            event.preventDefault();
-	            // 여기서 폼 데이터를 처리하거나 서버로 전송할 수 있습니다.
-	            alert('주제가 저장되었습니다!');
-	            document.getElementById('recommendation-popup').style.display = 'none';
-	        }
+	        document.getElementById('rccompleteBtn').onclick = function(event) {
+            event.preventDefault();
+            var topicContent = document.getElementById('topicContent').value;
+            
+            fetch('/api/topic/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ topic: topicContent })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('주제가 저장되었습니다!');
+                document.getElementById('recommendation-popup').style.display = 'none';
+                document.getElementById('topicContent').value = '';
+            })
+            .catch(error => console.error('Error:', error));
+        }
 	    </script>
     </body>
 </html>
