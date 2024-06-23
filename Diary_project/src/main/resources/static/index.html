@@ -19,26 +19,26 @@
     <body>
     	<!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top custom-navbar">
-            <div class="container">
+        <div class="container">
             <div class="navbar-menu-group">
                 <a class="navbar-brand" href="index.html">
-					<img src="assets/star_diary_logo.png" alt="Brand Logo">
-				</a>
-				<a class="navbar-menu" href="#!">
-					<img src="assets/PublicDiary_font.png">
-				</a>
-				
-				<a class="navbar-menu" href="#!">
-					<img src="assets/diary_font.png">
-				</a>
-				<a class="navbar-menu" href="#!">
-					<img src="assets/ExchangDiary_font.png">
-				</a>
-	        </div>
-	            
-	            <a class="login-btn" href="login.html">로그인</a>
+                    <img src="assets/star_diary_logo.png" alt="Brand Logo">
+                </a>
+                <a class="navbar-menu" href="#!">
+                    <img src="assets/PublicDiary_font.png">
+                </a>
+                <a class="navbar-menu" href="#!">
+                    <img src="assets/diary_font.png">
+                </a>
+                <a class="navbar-menu" href="#!">
+                    <img src="assets/ExchangDiary_font.png">
+                </a>
             </div>
-        </nav>
+            <div class="ml-auto">
+                <a id="user-info" class="nav-link"></a>
+            </div>
+        </div>
+    </nav>
         
         <!-- Topic recommendation -->
         <header class="topic-background py-5">
@@ -158,6 +158,33 @@
             	<p class="text-center text-white">Starry Diary Project<br><br> 개발자: 전효주 </p>
             </div>
         </footer>
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+	        $(document).ready(function() {
+	            console.log("Document ready");
+	            $.ajax({
+	                type: 'GET',
+	                url: '/api/session/userinfo',
+	                success: function(response) {
+	                    console.log("AJAX success", response);
+	                    if (response && response.userID && response.userName) {
+	                        $('#user-info').html(response.userName + '님!');
+	                    } else {
+	                        $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
+	                    }
+	                },
+	                error: function(xhr, status, error) {
+	                    console.error("AJAX error", status, error);
+	                    if (xhr.status === 204) {
+	                        $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
+	                    } else {
+	                        $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
+	                    }
+	                }
+	            });
+	        });
+	    </script>
    
     </body>
 </html>

@@ -22,10 +22,13 @@ public class LoginController {
         
         String name = loginService.getNameByIdAndPassword(id, password);
         if (name != null) {
+        	//세션에 로그인 한 사람의 아이디와 이름 저장
+        	session.setAttribute("userID", id);
             session.setAttribute("userName", name);
             return ResponseEntity.ok("로그인 성공");
+
         } else {
-            return ResponseEntity.status(401).body("아이디 또는 비밀번호가 잘못되었습니다.");
+        	return ResponseEntity.ok("아이디 또는 비밀번호가 잘못되었습니다.");
         }
     }
 }
