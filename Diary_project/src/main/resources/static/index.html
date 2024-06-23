@@ -27,7 +27,7 @@
                 <a class="navbar-menu" href="#!">
                     <img src="assets/PublicDiary_font.png">
                 </a>
-                <a class="navbar-menu" href="#!">
+                <a class="navbar-menu" href="my_diary.html">
                     <img src="assets/diary_font.png">
                 </a>
                 <a class="navbar-menu" href="#!">
@@ -146,7 +146,7 @@
 				        </div>
 			        </div>
                 
-                	<a class="my-btn" href="#public">일기 쓰러 가기!</a>
+                	<a class="my-btn" href="my_diary.html">일기 쓰러 가기!</a>
                 	
                 </div>
             </div>
@@ -169,7 +169,9 @@
 	                success: function(response) {
 	                    console.log("AJAX success", response);
 	                    if (response && response.userID && response.userName) {
-	                        $('#user-info').html(response.userName + '님!');
+	                        $('#user-info').html(response.userName + ' 님');
+	                        $('#user-info').attr("href", "#");
+	                        $('#user-info').addClass('font-3');
 	                    } else {
 	                        $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
 	                    }

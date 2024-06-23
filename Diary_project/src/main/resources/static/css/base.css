@@ -312,9 +312,6 @@ body{
 }
 
 
-
-/* 로그인 */
-
 .login-container {
 	--bs-gutter-x: 1.5rem;
 	--bs-gutter-y: 0;
@@ -442,4 +439,27 @@ body{
 .my-6 {
 	margin-top: 2rem !important;
 	margin-bottom: 2rem !important;
+}
+
+.font-3 {
+	font-size: 25px;
+	font-weight: 300;
+	color: #128e09;
+	text-decoration: none;
+}
+
+.my-diary-background{
+	background-color: white;
+}
+
+.my-diary-section {
+	padding-top: 3rem !important;
+	padding-bottom: 8rem !important;
+	background-color: white;
+}
+
+.my-button-section {
+	padding-top: 3rem !important;
+	padding-bottom: 3rem !important;
+	background-color: white;
 }
