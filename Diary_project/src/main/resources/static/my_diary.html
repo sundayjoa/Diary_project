@@ -97,7 +97,7 @@
 			                <!-- 주제 추천 섹션 -->
 			                <div id="recommendation-section" class="hidden-section">
 			                    <h3>추천 일기 주제</h3>
-			                    <p>오늘 하루 중 가장 기억에 남는 순간은 무엇인가요?</p>
+			                    <p class="my-h2">오늘 하루 중 가장 기억에 남는 순간은 무엇인가요?</p>
 			                    <a class="recommendation-btn" href="#" id="rcBtn">주제 추천!</a>
 			                </div>
 			                
@@ -111,6 +111,20 @@
 			                </form>
 			            </div>
 			         </div>
+			         
+			         <!-- 주제 추천 팝업창 -->
+			        <div id="recommendation-popup" class="rc-popup">
+			            <div class="rc-popup-content">
+			                <span class="close" id="closeRcPopupBtn">&times;</span>
+			                <form id="recommendationForm">
+			                    <p class="my-font-3">일기 주제를 추천해주세요!</p>
+			                    <p class="my-font-4">*50자 이하의 주제로 추천해주세요!</p>
+			                    <p class="my-font-5">*지나치게 선정적이거나 폭력적인 주제는 삭제 처리 됩니다.</p>
+			                    <input type="text" id="topicContent" name="topicContent" class="topicContent" placeholder="주제를 입력해주세요" required><br>
+			                    <a class="rccomplete-btn" href="#" id="rccompleteBtn">추천 완료</a>
+			                </form>
+			            </div>
+			        </div>
                 </div>
             </div>
         </section>
@@ -172,12 +186,32 @@
 	            document.getElementById('popup').style.display = 'none';
 	        }
 
-	        // 폼 제출
+	        // 일기 폼 제출
 	        document.getElementById('diaryForm').onsubmit = function(event) {
 	            event.preventDefault();
 	            // 여기서 폼 데이터를 처리하거나 서버로 전송할 수 있습니다.
 	            alert('일기가 저장되었습니다!');
 	            document.getElementById('popup').style.display = 'none';
+	        }
+	        
+	        //주제 추천
+	        //팝업 열기
+	        document.getElementById('rcBtn').onclick = function(event) {
+	            event.preventDefault();
+	            document.getElementById('recommendation-popup').style.display = 'block';
+	        }
+	
+	        // 추천 팝업 닫기 버튼
+	        document.getElementById('closeRcPopupBtn').onclick = function() {
+	            document.getElementById('recommendation-popup').style.display = 'none';
+	        }
+	        
+	     	// 주제 추천 폼 제출
+	        document.getElementById('recommendationForm').onsubmit = function(event) {
+	            event.preventDefault();
+	            // 여기서 폼 데이터를 처리하거나 서버로 전송할 수 있습니다.
+	            alert('주제가 저장되었습니다!');
+	            document.getElementById('recommendation-popup').style.display = 'none';
 	        }
 	    </script>
     </body>
