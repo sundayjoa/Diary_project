@@ -104,10 +104,22 @@
 			                
 			                <form id="diaryForm">
 			                	<p class="my-font-1">제목</p>  
-			                    <input type="text" id="diaryTitle" name="title">
+			                    <input type="text" id="diaryTitle" name="diaryTitle" class="diaryTitle" placeholder="제목을 입력해주세요" required>
 			                    <p class="my-font-2">내용</p>  
-			                    <textarea id="diaryContent" name="content"></textarea><br><br>
-			                    <button type="submit">완료</button>
+			                    <textarea id="diaryContent" name="diaryContent" class="diaryContent" placeholder="내용을 입력해주세요" required></textarea><br><br>
+			                    
+			                    <div class="radio-group">
+				                    <div class="radio-container">
+							            <input type="radio" id="public" name="visibility" value="public">
+							            <p>공개</p>
+						        	</div>
+						        	<div class="radio-container">
+							            <input type="radio" id="private" name="visibility" value="private">
+							            <p>비공개</p>
+						        	</div>
+					        	</div>
+			                    
+			                    <button type="submit" id="writing-btn" class="writing-btn">작성 완료</button>
 			                </form>
 			            </div>
 			         </div>

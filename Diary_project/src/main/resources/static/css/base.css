@@ -482,7 +482,7 @@ body{
     background-color: #FFF8B5;
     margin: 5% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 3px solid #FF8200;
     width: 80%;
     border-radius: 15px;
 }
@@ -637,4 +637,71 @@ body{
   	margin-left: auto;
   	margin-top: 30px;
   	margin-bottom: 20px;
+}
+
+/* 일기 쓰기 섹션 */
+.diaryTitle{
+	width: 80%;
+	height: 40px;
+    padding: 10px;
+    border: 3px solid #FF8200;
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 10px;
+}
+
+.diaryContent{
+	width: 80%;
+	height: 500px;
+    padding: 10px;
+    border: 3px solid #FF8200;
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 10px;
+    resize: none;
+}
+
+.radio-group{
+	width: 80%;
+    margin: 0 auto;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.radio-container {
+    display: inline-block;
+    margin-right: 50px;
+    vertical-align: middle;
+}
+.radio-container p {
+    display: inline;
+    margin: 0;
+    font-size: 20px;
+}
+
+.writing-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #FFC846; 
+    color: white; 
+    text-align: center;
+    text-decoration: none; 
+    border: 3px solid #FF8200;
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    transition: background-color 0.3s;
+    margin-right: 0; 
+  	margin-left: auto;
+  	margin-top: 10px;
+  	margin-bottom: 30px;
+}
+
+.writing-btn:hover {
+    background-color: #FF8200;
 }
