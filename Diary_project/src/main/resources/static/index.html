@@ -46,7 +46,7 @@
                 <div class="text-center text-white">
                     <h1 class="topic-title fw-bolder">떠오르는 주제가 없으신가요?</h1>
                     <p class="lead fw-normal mb-0">* 오늘의 일기 주제 *</p>
-                    <p class="topic-content fw-normal mb-0">일기 주제 추천(mysql 연결)</p>
+                    <p class="topic-content fw-normal mb-0" id="randomTopic">주제를 가져오는 중입니다...</p>
                 </div>
             </div>
         </header>
@@ -186,6 +186,25 @@
 	                }
 	            });
 	        });
+	        
+	     	// 주제 가져오기
+	     	document.addEventListener('DOMContentLoaded', function() {
+	            fetchRandomTopic();
+	        });
+	     	
+	        function fetchRandomTopic() {
+	            fetch('/api/topic/random')
+	            .then(response => response.json())
+	            .then(data => {
+	            	console.log(data);
+	                document.getElementById('randomTopic').innerText = data.topic;
+	            })
+	            .catch(error => {
+	            	console.error('Error:', error);
+	                console.error('Error:', error);
+	                document.getElementById('randomTopic').innerText = '주제를 불러오는데 실패했습니다.';
+	            });
+	        }
 	    </script>
    
     </body>

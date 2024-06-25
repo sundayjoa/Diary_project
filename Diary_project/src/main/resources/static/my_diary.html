@@ -97,7 +97,7 @@
 			                <!-- 주제 추천 섹션 -->
 			                <div id="recommendation-section" class="hidden-section">
 			                    <h3>추천 일기 주제</h3>
-			                    <p class="my-h2">오늘 하루 중 가장 기억에 남는 순간은 무엇인가요?</p>
+			                    <p class="my-h2"id="randomTopic">주제를 불러오는 중입니다...</p>
 			                    <a class="recommendation-btn" href="#" id="rcBtn">주제 추천!</a>
 			                </div>
 			                
@@ -179,6 +179,7 @@
 	        document.getElementById('openPopupBtn').onclick = function(event) {
 	            event.preventDefault();
 	            document.getElementById('popup').style.display = 'block';
+	            fetchRandomTopic();
 	        }
 
 	        // 팝업 닫기 버튼
@@ -226,6 +227,21 @@
             })
             .catch(error => console.error('Error:', error));
         }
+	     	
+	     	// 주제 가져오기
+	        function fetchRandomTopic() {
+	            fetch('/api/topic/random')
+	            .then(response => response.json())
+	            .then(data => {
+	            	console.log(data);
+	                document.getElementById('randomTopic').innerText = data.topic;
+	            })
+	            .catch(error => {
+	            	console.error('Error:', error);
+	                console.error('Error:', error);
+	                document.getElementById('randomTopic').innerText = '주제를 불러오는데 실패했습니다.';
+	            });
+	        }
 	    </script>
     </body>
 </html>
