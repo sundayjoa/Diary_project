@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-	<html lang="en">
+	<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	    <head>
 	        <meta charset="utf-8" />
 	        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -45,38 +45,17 @@
         	<div class="my-diary-background container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="topic-title fw-bolder">나의 일기장</h1>
-                    
-                    <div class="public-container">
-	                    <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				        </div>
 				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
+			        <div class="public-container">
+				        <div th:each="post : ${posts}" class="rectangle">
+				            <h2 class="public-title" th:text="${post.title}">제목</h2>
+				            <p class="public-content" th:text="${post.content}">내용</p>
+				            <p class="public-author" th:text="${post.name}">작성자</p>
+				            <p class="public-dateweather" th:text="${post.date}">날짜 날씨</p>
 				        </div>
-				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				        </div>
-				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				        </div>
-			        </div>
+				    </div>
+		        </div>
                 	
-                </div>
             </div>
         </section>
         

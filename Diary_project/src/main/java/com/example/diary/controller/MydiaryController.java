@@ -4,6 +4,8 @@ import com.example.diary.model.Mydiary;
 import com.example.diary.service.MydiaryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/my_diary")
@@ -43,4 +47,21 @@ public class MydiaryController {
             throw new RuntimeException("User not logged in.");
         }
     }
+    
+    @PostMapping("/posts")
+    public List<Mydiary> getPosts(HttpSession session) {
+        String userId = (String) session.getAttribute("userID");
+        System.out.println("Checking session for userID: " + userId);
+        
+        if (userId == null) {
+            System.out.println("User is not logged in");
+            return Collections.emptyList();
+        }
+        System.out.println("User ID: " + userId);
+        List<Mydiary> posts = MydiaryService.getPostsById(userId);
+        System.out.println("Number of posts found: " + posts.size());
+        return posts;
+    }
+    
+
 }

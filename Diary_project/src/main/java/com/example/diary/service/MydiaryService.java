@@ -3,6 +3,8 @@ package com.example.diary.service;
 import com.example.diary.model.Mydiary;
 import com.example.diary.repository.MydiaryRepository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,15 @@ public class MydiaryService {
 
     public Mydiary saveMydiary(Mydiary Mydiary) {
         return MydiaryRepository.save(Mydiary);
+    }
+    
+    public List<Mydiary> getPostsById(String id) {
+        List<Mydiary> posts = MydiaryRepository.findById(id);
+        System.out.println("Retrieved posts from repository: " + posts);
+        return posts;
+    }
+
+    public void saveDiary(Mydiary diary) {
+        MydiaryRepository.save(diary);
     }
 }
