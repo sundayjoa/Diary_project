@@ -254,6 +254,84 @@
 	                document.getElementById('randomTopic').innerText = '주제를 불러오는데 실패했습니다.';
 	            });
 	        }
+	     	
+	     	<!-- 일기 저장 -->
+	     	function validateForm() {
+	            const diaryTitle = document.getElementById('diaryTitle').value;
+	            const diaryContent = document.getElementById('diaryContent').value;
+	            const visibility = document.querySelector('input[name="visibility"]:checked');
+	            
+	            if (diaryTitle.length < 1) {
+	                alert('제목은 빈칸으로 둘 수 없습니다.');
+	                return false;
+	            }
+
+	            if (diaryContent.length < 1) {
+	                alert('내용은 비워둘 수 없습니다.');
+	                return false;
+	            }
+
+	            if (!visibility) {
+	                alert('공개 여부를 선택해야 합니다.');
+	                return false;
+	            }
+
+	            return true;
+	        }
+
+	        async function checkUserSession() {
+	        	const response = await fetch('/api/session/userinfo', {
+	                method: 'GET',
+	                credentials: 'include'
+	            });
+	            if (response.status === 200) {
+	                const result = await response.json();
+	                return result.userID !== undefined;
+	            } else {
+	                return false;
+	            }
+	        }
+
+	        $(document).ready(function() {
+	            $('#writing-btn').on('click', async function(event) {
+	                event.preventDefault();
+
+	                if (!validateForm()) {
+	                    return;
+	                }
+
+	                const isLoggedIn = await checkUserSession();
+	                if (!isLoggedIn) {
+	                    alert('일기장을 쓰시려면 로그인 해야 합니다.');
+	                    return;
+	                }
+
+	                if (confirm('저장하시겠습니까?')) {
+	                    const formData = {
+	                        diaryTitle: $('#diaryTitle').val(),
+	                        diaryContent: $('#diaryContent').val(),
+	                        visibility: $('input[name="visibility"]:checked').val()
+	                    };
+
+	                    $.ajax({
+	                        type: 'POST',
+	                        url: 'http://localhost:8080/api/my_diary',
+	                        data: formData,
+	                        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+	                        success: function(response) {
+	                            console.log('Success:', response);
+	                            alert('다이어리 작성이 성공적으로 완료되었습니다.');
+	                            window.location.href = 'my_diary.html';
+	                        },
+	                        error: function(error) {
+	                            console.error('Error:', error);
+	                            alert('다이어리 작성 중 오류가 발생했습니다.');
+	                        }
+	                    });
+	                }
+	            });
+	        });
+	        
 	    </script>
     </body>
 </html>
