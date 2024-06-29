@@ -219,17 +219,23 @@ body{
 }
 
 .public-author {
+	position: absolute;
+	bottom: 30px;
 	font-size: 16px;
     text-align: right;
     color: #6D6D6D;
     margin-top: auto;
+    right: 16px;
 }
 
 .public-dateweather {
+	position: absolute;
+	bottom: 10px;
 	font-size: 16px;
     text-align: right;
     color: #3B4FFF;
     margin-top: 5px;
+    right: 16px;
 }
 
 .like-container {
@@ -462,6 +468,61 @@ body{
 	padding-top: 3rem !important;
 	padding-bottom: 3rem !important;
 	background-color: white;
+}
+
+.my-diary-container {
+	margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 200px;
+    gap: 20px; 
+}
+
+.my-rectangle {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    height: 55vh;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 0 1 calc(25% - 30px);
+    justify-content: space-between;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+.my-rectangle:hover{
+	background-color: #f0f0f0;
+}
+
+.public-title {
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.public-content {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    -webkit-line-clamp: 6;
+}
+
+
+.public-author, .public-dateweather {
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-self: flex-end;
 }
 
 /*팝업창*/
