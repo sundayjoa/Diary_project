@@ -148,6 +148,7 @@
 	                            var postHtml = '<div class="my-rectangle">' +
 	                                '<h2 class="public-title">' + post.title + '</h2>' +
 	                                '<p class="public-content">' + post.content + '</p>' +
+	                                '<p class="public-check">' + (post.isPublic? '공개' : '비공개') + '</p>' +
 	                                '<p class="public-author">' + post.name + '</p>' +
 	                                '<p class="public-dateweather">' + formattedDate + '</p>' +
 	                                '</div>';

@@ -238,6 +238,17 @@ body{
     right: 16px;
 }
 
+.public-check {
+	position: absolute;
+	bottom: 50px;
+	font-size: 16px;
+    text-align: right;
+    color: #f35518;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    right: 16px;
+}
+
 .like-container {
     display: flex;
     align-items: center;
@@ -460,7 +471,7 @@ body{
 
 .my-diary-section {
 	padding-top: 3rem !important;
-	padding-bottom: 8rem !important;
+	padding-bottom: 1rem !important;
 	background-color: white;
 }
 
@@ -493,6 +504,7 @@ body{
     cursor: pointer;
     overflow: hidden;
     position: relative;
+    margin-top: 50px;
 }
 
 .my-rectangle:hover{
