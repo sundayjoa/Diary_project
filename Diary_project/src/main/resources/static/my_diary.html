@@ -54,6 +54,20 @@
             </div>
         </section>
         
+        <!-- My diary pupup -->
+		<div id="my-popup" class="popup">
+		    <div class="my-popup-content">
+		        <span class="close" id="closePopupBtn">&times;</span>
+		        	<p id="public-check" class="my-font-7"></p>
+		            <h2 id="my-title" class="my-font-6"></h2>  
+		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>  
+		            
+		            <button type="submit" id="deleteBtn" class="deleteBtn">삭제</button>
+		            <button type="submit" id="modifyBtn" class="modifyBtn">수정</button>
+		    </div>
+		</div>
+        
+        
         <!-- writing button -->
         <section class="my-button-section">
         	<div class="my-diary-background container px-4 px-lg-5 my-5">
@@ -161,7 +175,26 @@
 	                    $('.my-diary-container').append('<p>Error fetching posts.</p>');
 	                }
 	            });
+	     	// 내 일기장 내용 보기
+	        $(document).on('click', '.my-rectangle', function() {
+	            var postId = $(this).data('id');
+	            var title = $(this).find('.public-title').text();
+	            var content = $(this).find('.public-content').text();
+	            var isPublic = $(this).find('.public-check').text();
+
+	            $('#public-check').text(isPublic);
+	            $('#my-title').text(title);
+	            $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
+
+	            // 팝업 표시
+	            $('#my-popup').show();
 	        });
+			     // 팝업 닫기 이벤트
+			        $('#closePopupBtn').on('click', function() {
+			            $('#my-popup').hide();
+			        });
+		
+			    });
         
         
 	        $(document).ready(function() {
@@ -216,7 +249,6 @@
 	        // 일기 폼 제출
 	        document.getElementById('diaryForm').onsubmit = function(event) {
 	            event.preventDefault();
-	            // 여기서 폼 데이터를 처리하거나 서버로 전송할 수 있습니다.
 	            alert('일기가 저장되었습니다!');
 	            document.getElementById('popup').style.display = 'none';
 	        }

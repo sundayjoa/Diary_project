@@ -627,6 +627,20 @@ body{
 	color: #ff3333;
 }
 
+.my-font-6{
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+.my-font-7{
+	font-size: 20px;
+	font-weight: 300;
+	margin-top: 10px;
+	margin-left: 20px;
+	color: #ff3333;
+	text-align: left !important;
+}
 
 /* 주제 추천 섹션 */
 .hidden-section {
@@ -777,4 +791,69 @@ body{
 
 .writing-btn:hover {
     background-color: #FF8200;
+}
+
+/* 일기장 보기 팝업*/
+.my-popup-content {
+    background-color: #FFF8B5;
+    margin: 5% auto;
+    padding: 20px;
+    border: 3px solid #FF8200;
+    width: 50%;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.my-diary-content {
+    min-height: 600px;
+    padding: 30px; 
+    background: #fffff2;
+    border-radius: 20px; 
+    margin-top: 15px;
+    margin-left: 25px;
+    margin-right: 25px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.modifyBtn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #0080ff; 
+    color: white; 
+    text-align: center;
+    text-decoration: none; 
+    border: 3px solid #004080;
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    transition: background-color 0.3s;
+  	margin-left: 15px;
+  	margin-top: 30px;
+  	margin-bottom: 30px;
+}
+
+.modifyBtn:hover {
+    background-color: #004080;
+}
+
+.deleteBtn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #fd6931; 
+    color: white; 
+    text-align: center;
+    text-decoration: none; 
+    border: 3px solid #f8270a;
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    transition: background-color 0.3s;
+    margin-right: 15px; 
+  	margin-top: 30px;
+  	margin-bottom: 30px;
+}
+
+.deleteBtn:hover {
+    background-color: #f8270a;
 }
