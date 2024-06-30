@@ -159,9 +159,10 @@
 		                        ('0' + date.getDate()).slice(-2) + ' ' +
 		                        ('0' + date.getHours()).slice(-2) + ':' +
 		                        ('0' + date.getMinutes()).slice(-2);
+		                        
 		                    
-		                    var postHtml = '<div class="my-rectangle" data-diary-number="' + post.DiaryNumber + '">' +
-		                        '<h2 class="public-title">' + post.title + '</h2>' +
+		                    var postHtml = '<div class="my-rectangle" data-diary-number="' + post.diaryNumber + '">' +
+		                    	'<h2 class="public-title">' + post.title + '</h2>' +
 		                        '<p class="public-content">' + post.content + '</p>' +
 		                        '<p class="public-check">' + (post.isPublic ? '공개' : '비공개') + '</p>' +
 		                        '<p class="public-author">' + post.name + '</p>' +
@@ -176,9 +177,18 @@
 		            $('.my-diary-container').append('<p>Error fetching posts.</p>');
 		        }
 		    });
+	        
+		    var currentDiaryNumber;
+
+		    $(document).on('click', '.my-rectangle', function() {
+		        currentDiaryNumber = $(this).data('diary-number');
+		        console.log("currentDiaryNumber:", currentDiaryNumber);
+		    });
 		
 		    // 내 일기장 내용 보기
 		    $(document).on('click', '.my-rectangle', function() {
+		    	var diaryNumber = $(this).data('diary-number');
+				console.log("DiaryNumber: " + diaryNumber);
 		        var title = $(this).find('.public-title').text();
 		        var content = $(this).find('.public-content').text();
 		        var isPublic = $(this).find('.public-check').text();
@@ -186,6 +196,7 @@
 		        $('#public-check').text(isPublic);
 		        $('#my-title').text(title);
 		        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
+		        
 		
 		        // 팝업 표시
 		        $('#my-popup').show();
@@ -199,10 +210,9 @@
 		    // 게시글 삭제
 		    $(document).on('click', '.deleteBtn', function(event) {
 		        event.stopPropagation();
-		        var diaryNumber = $(this).closest('.my-rectangle').data('diary-number');
 		        if (confirm('정말로 삭제하시겠습니까?')) {
 		            $.ajax({
-		                url: '/api/my_diary/delete/' + DiaryNumber,
+		                url: '/api/my_diary/delete/' + currentDiaryNumber,
 		                type: 'DELETE',
 		                success: function(result) {
 		                    alert('삭제되었습니다.');
