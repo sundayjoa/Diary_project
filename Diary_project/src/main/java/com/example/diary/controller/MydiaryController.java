@@ -4,14 +4,20 @@ import com.example.diary.model.Mydiary;
 import com.example.diary.service.MydiaryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpSession;
+
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -61,6 +67,17 @@ public class MydiaryController {
         List<Mydiary> posts = MydiaryService.getPostsById(userId);
         System.out.println("Number of posts found: " + posts.size());
         return posts;
+    }
+    
+    @DeleteMapping("/delete/{DiaryNumber}")
+    public ResponseEntity<String> deleteDiary(@PathVariable("DiaryNumber") BigInteger DiaryNumber, HttpSession session) {
+        String userId = (String) session.getAttribute("userID");
+        if (userId == null) {
+            return new ResponseEntity<>("User not logged in", HttpStatus.UNAUTHORIZED);
+        }
+        
+        MydiaryService.deleteDiary(DiaryNumber);
+        return new ResponseEntity<>("일기장이 삭제되었습니다.", HttpStatus.OK);
     }
     
 

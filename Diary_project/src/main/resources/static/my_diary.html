@@ -138,63 +138,85 @@
 	    
 	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-	        //게시글 가져오기
+	        //게시글 
 	        $(document).ready(function() {
-	            $.ajax({
-	                url: "/api/my_diary/posts",
-	                type: "POST",
-	                success: function(posts) {
-	                    if (posts.length === 0) {
-	                        $('.my-diary-container').append('<p>일기장을 작성해보세요!</p>');
-	                    } else {
-	                    	//최신 순으로 정렬
-	                    	posts.sort(function(a, b) {
-			                    return new Date(b.date) - new Date(a.date);
-			                });
-	                        posts.forEach(function(post) {
-	                        	 var date = new Date(post.date);
-	                             var formattedDate = date.getFullYear() + '-' +
-	                                 ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-	                                 ('0' + date.getDate()).slice(-2) + ' ' +
-	                                 ('0' + date.getHours()).slice(-2) + ':' +
-	                                 ('0' + date.getMinutes()).slice(-2);
-	                                 
-	                            var postHtml = '<div class="my-rectangle">' +
-	                                '<h2 class="public-title">' + post.title + '</h2>' +
-	                                '<p class="public-content">' + post.content + '</p>' +
-	                                '<p class="public-check">' + (post.isPublic? '공개' : '비공개') + '</p>' +
-	                                '<p class="public-author">' + post.name + '</p>' +
-	                                '<p class="public-dateweather">' + formattedDate + '</p>' +
-	                                '</div>';
-	                            $('.my-diary-container').append(postHtml);
-	                        });
-	                    }
-	                },
-	                error: function(error) {
-	                    console.error("Error fetching posts:", error);
-	                    $('.my-diary-container').append('<p>Error fetching posts.</p>');
-	                }
-	            });
-	     	// 내 일기장 내용 보기
-	        $(document).on('click', '.my-rectangle', function() {
-	            var postId = $(this).data('id');
-	            var title = $(this).find('.public-title').text();
-	            var content = $(this).find('.public-content').text();
-	            var isPublic = $(this).find('.public-check').text();
-
-	            $('#public-check').text(isPublic);
-	            $('#my-title').text(title);
-	            $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
-
-	            // 팝업 표시
-	            $('#my-popup').show();
-	        });
-			     // 팝업 닫기 이벤트
-			        $('#closePopupBtn').on('click', function() {
-			            $('#my-popup').hide();
-			        });
+	        //게시글 가져오기
+		    $.ajax({
+		        url: "/api/my_diary/posts",
+		        type: "POST",
+		        success: function(posts) {
+		            if (posts.length === 0) {
+		                $('.my-diary-container').append('<p>일기장을 작성해보세요!</p>');
+		            } else {
+		                // 최신 순으로 정렬
+		                posts.sort(function(a, b) {
+		                    return new Date(b.date) - new Date(a.date);
+		                });
+		                posts.forEach(function(post) {
+		                    var date = new Date(post.date);
+		                    var formattedDate = date.getFullYear() + '-' +
+		                        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+		                        ('0' + date.getDate()).slice(-2) + ' ' +
+		                        ('0' + date.getHours()).slice(-2) + ':' +
+		                        ('0' + date.getMinutes()).slice(-2);
+		                    
+		                    var postHtml = '<div class="my-rectangle" data-diary-number="' + post.DiaryNumber + '">' +
+		                        '<h2 class="public-title">' + post.title + '</h2>' +
+		                        '<p class="public-content">' + post.content + '</p>' +
+		                        '<p class="public-check">' + (post.isPublic ? '공개' : '비공개') + '</p>' +
+		                        '<p class="public-author">' + post.name + '</p>' +
+		                        '<p class="public-dateweather">' + formattedDate + '</p>' +
+		                        '</div>';
+		                    $('.my-diary-container').append(postHtml);
+		                });
+		            }
+		        },
+		        error: function(error) {
+		            console.error("Error fetching posts:", error);
+		            $('.my-diary-container').append('<p>Error fetching posts.</p>');
+		        }
+		    });
 		
-			    });
+		    // 내 일기장 내용 보기
+		    $(document).on('click', '.my-rectangle', function() {
+		        var title = $(this).find('.public-title').text();
+		        var content = $(this).find('.public-content').text();
+		        var isPublic = $(this).find('.public-check').text();
+		
+		        $('#public-check').text(isPublic);
+		        $('#my-title').text(title);
+		        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
+		
+		        // 팝업 표시
+		        $('#my-popup').show();
+		    });
+		
+		    // 팝업 닫기 이벤트
+		    $('#closePopupBtn').on('click', function() {
+		        $('#my-popup').hide();
+		    });
+		
+		    // 게시글 삭제
+		    $(document).on('click', '.deleteBtn', function(event) {
+		        event.stopPropagation();
+		        var diaryNumber = $(this).closest('.my-rectangle').data('diary-number');
+		        if (confirm('정말로 삭제하시겠습니까?')) {
+		            $.ajax({
+		                url: '/api/my_diary/delete/' + DiaryNumber,
+		                type: 'DELETE',
+		                success: function(result) {
+		                    alert('삭제되었습니다.');
+		                    location.reload();
+		                },
+		                error: function(error) {
+		                    console.error("Error deleting post:", error);
+		                    alert('삭제에 실패했습니다.');
+		                }
+		            });
+		        }
+		    });
+		});
+
         
         
 	        $(document).ready(function() {
