@@ -59,6 +59,10 @@
 		    <div class="my-popup-content">
 		        <span class="close" id="closePopupBtn">&times;</span>
 		        	<p id="public-check" class="my-font-7"></p>
+		        	<div class="like-container" data-liked="false">
+		        	<span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
+		        	<p id="likeCount" class="like-count"></p>
+		        	</div>
 		            <h2 id="my-title" class="my-font-6"></h2>  
 		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>
 		            <p id="diary-date" class="my-font-8"></p>  
@@ -215,20 +219,24 @@
 		        }
 		    });
 	        
+	        //DiaryNumber 선언
 		    var currentDiaryNumber;
 
 		    $(document).on('click', '.my-rectangle', function() {
 		        currentDiaryNumber = $(this).data('diary-number');
 		        console.log("currentDiaryNumber:", currentDiaryNumber);
 		    });
-		
+		    
+		    
 		    // 내 일기장 내용 보기
 		    $(document).on('click', '.my-rectangle', function() {
+		    	var likeCount = $(this).find('.like-count').text();
 		        var title = $(this).find('.public-title').text();
 		        var content = $(this).find('.public-content').text();
 		        var isPublic = $(this).find('.public-check').text();
 		        var date = $(this).find('.public-dateweather').text();
 		
+		        $('#likeCount').text(likeCount);
 		        $('#public-check').text(isPublic);
 		        $('#my-title').text(title);
 		        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
@@ -513,6 +521,7 @@
 	            } else {
 	                likeCount++;
 	                element.innerHTML = '&#9829;'; 
+	                $(element).addClass('liked');
 	            }
 
 	            likeContainer.data('liked', !liked);

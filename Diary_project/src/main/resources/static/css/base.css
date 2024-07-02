@@ -912,3 +912,7 @@ body{
     margin-top: 5px;
     right: 16px;
 }
+
+.like-icon.liked {
+    color: red;
+}
