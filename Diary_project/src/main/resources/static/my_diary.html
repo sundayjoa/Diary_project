@@ -60,12 +60,48 @@
 		        <span class="close" id="closePopupBtn">&times;</span>
 		        	<p id="public-check" class="my-font-7"></p>
 		            <h2 id="my-title" class="my-font-6"></h2>  
-		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>  
+		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>
+		            <p id="diary-date" class="my-font-8"></p>  
 		            
 		            <button type="submit" id="deleteBtn" class="deleteBtn">삭제</button>
 		            <button type="submit" id="modifyBtn" class="modifyBtn">수정</button>
 		    </div>
 		</div>
+		
+		<!-- modify popup -->
+		<div id="modify-popup" class="popup">
+			<div class="popup-content">
+				<span class="close" id="closeModify">&times;</span>
+				<h1 class="my-h1 text-center top">수정 하기</h1>
+				<form id="modifyForm">
+				<p class="my-font-1 text-center">제목</p> 
+				<div class="modify-container">
+					<input type="text" id="modifyTitle" name="modifyTitle" class="modifyTitle" required>
+				</div>
+				<p class="my-font-1 text-center">내용</p>
+				<div class="modify-container">
+					<textarea id="modifyContent" name="modifyContent" class="diaryContent" required></textarea><br><br>
+				</div>
+				
+				<div class="radio-group">
+                    <div class="radio-container">
+			            <input type="radio" id="public" name="visibility" value="public">
+			            <p>공개</p>
+		        	</div>
+		        	<div class="radio-container">
+			            <input type="radio" id="private" name="visibility" value="private">
+			            <p>비공개</p>
+		        	</div>
+	        	</div>
+	        	
+	        	<div class="modify-container">
+	        		<button type="submit" id="modify-btn" class="modify-btn">수정 완료</button>
+	        
+	        	</div>
+				</form>
+			</div>
+		</div>
+		
         
         
         <!-- writing button -->
@@ -76,9 +112,9 @@
                     <a class="my-btn" href="#" id="openPopupBtn">일기 쓰러 가기!</a>
                     
                     <!-- 팝업창 -->
-			        <div id="popup" class="popup">
+			        <div id="writing-popup" class="popup">
 			            <div class="popup-content">
-			                <span class="close" id="closePopupBtn">&times;</span>
+			                <span class="close" id="close-writing-PopupBtn">&times;</span>
 			                <h1 class="my-h1">일기 작성</h1>
 			                <a class="rc-topic" id="recommendation-topic">⒤ 일기 주제를 추천해드려요!</a>
 			                
@@ -187,15 +223,15 @@
 		
 		    // 내 일기장 내용 보기
 		    $(document).on('click', '.my-rectangle', function() {
-		    	var diaryNumber = $(this).data('diary-number');
-				console.log("DiaryNumber: " + diaryNumber);
 		        var title = $(this).find('.public-title').text();
 		        var content = $(this).find('.public-content').text();
 		        var isPublic = $(this).find('.public-check').text();
+		        var date = $(this).find('.public-dateweather').text();
 		
 		        $('#public-check').text(isPublic);
 		        $('#my-title').text(title);
 		        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
+		        $('#diary-date').text("작성일: " + date);
 		        
 		
 		        // 팝업 표시
@@ -206,6 +242,32 @@
 		    $('#closePopupBtn').on('click', function() {
 		        $('#my-popup').hide();
 		    });
+		    
+		 	// 일기장 수정하기
+		    $(document).on('click', '#modifyBtn', function() {
+		        var title = $('#my-title').text();
+		        var content = $('#my-diary-content').html().replace(/<br\s*\/?>/gi, '\n');
+		        var isPublic = $('#public-check').text().trim();
+
+		        $('#modifyTitle').val(title);
+		        $('#modifyContent').val(content);
+		        if (isPublic === '공개') {
+		            $('#public').prop('checked', true);
+		        } else if (isPublic === '비공개') {
+		            $('#private').prop('checked', true); 
+		        }
+		        
+		
+		        // 팝업 표시
+		        $('#my-popup').hide();
+		        $('#modify-popup').show();
+		    });
+		
+		    // 팝업 닫기 이벤트
+		    $('#closeModify').on('click', function() {
+		        $('#modify-popup').hide();
+		    });
+		    
 		
 		    // 게시글 삭제
 		    $(document).on('click', '.deleteBtn', function(event) {
@@ -269,20 +331,20 @@
 	     	// 팝업 열기 버튼
 	        document.getElementById('openPopupBtn').onclick = function(event) {
 	            event.preventDefault();
-	            document.getElementById('popup').style.display = 'block';
+	            document.getElementById('writing-popup').style.display = 'block';
 	            fetchRandomTopic();
 	        }
 
 	        // 팝업 닫기 버튼
-	        document.getElementById('closePopupBtn').onclick = function() {
-	            document.getElementById('popup').style.display = 'none';
+	        document.getElementById('close-writing-PopupBtn').onclick = function() {
+	            document.getElementById('writing-popup').style.display = 'none';
 	        }
 
 	        // 일기 폼 제출
 	        document.getElementById('diaryForm').onsubmit = function(event) {
 	            event.preventDefault();
 	            alert('일기가 저장되었습니다!');
-	            document.getElementById('popup').style.display = 'none';
+	            document.getElementById('writing-popup').style.display = 'none';
 	        }
 	        
 	        //주제 추천

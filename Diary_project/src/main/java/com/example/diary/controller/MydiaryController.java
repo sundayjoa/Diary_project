@@ -69,7 +69,6 @@ public class MydiaryController {
         return posts;
     }
     
-    //저장이 안돼
     @DeleteMapping("/delete/{DiaryNumber}")
     public ResponseEntity<String> deleteDiary(@PathVariable("DiaryNumber") BigInteger DiaryNumber, HttpSession session) {
         String userId = (String) session.getAttribute("userID");

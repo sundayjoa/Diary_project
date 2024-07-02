@@ -104,9 +104,6 @@ body{
 
 
 
-
-
-
 .topic-background{
 	background-color: #FFF8B5;
 }
@@ -642,6 +639,14 @@ body{
 	text-align: left !important;
 }
 
+.my-font-8 {
+	position: absolute;
+	font-size: 16px;
+    color: #3B4FFF;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 /* 주제 추천 섹션 */
 .hidden-section {
     display: none;
@@ -836,6 +841,47 @@ body{
 .modifyBtn:hover {
     background-color: #004080;
 }
+
+.modifyTitle{
+	width: 80%;
+	height: 40px;
+    padding: 10px;
+    border: 3px solid #FF8200;
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 10px;
+}
+
+.modify-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modify-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #FFC846; 
+    color: white; 
+    text-align: center;
+    text-decoration: none; 
+    border: 3px solid #FF8200;
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    transition: background-color 0.3s;
+    margin-right: 0; 
+  	margin-left: 0;
+  	margin-top: 10px;
+  	margin-bottom: 30px;
+}
+
+.top{
+	margin-top: 40px !important;
+}
+
 
 .deleteBtn {
     display: inline-block;
