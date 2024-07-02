@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,6 +79,30 @@ public class MydiaryController {
         
         MydiaryService.deleteDiary(DiaryNumber);
         return new ResponseEntity<>("일기장이 삭제되었습니다.", HttpStatus.OK);
+    }
+    
+    @PutMapping("/update/{DiaryNumber}")
+    public ResponseEntity<String> updateDiary(@PathVariable("DiaryNumber") BigInteger diaryNumber,
+                                              @RequestParam("diaryTitle") String diaryTitle,
+                                              @RequestParam("diaryContent") String diaryContent,
+                                              @RequestParam("visibility") String visibility,
+                                              HttpSession session) {
+        String userId = (String) session.getAttribute("userID");
+        if (userId == null) {
+            return new ResponseEntity<>("User not logged in", HttpStatus.UNAUTHORIZED);
+        }
+
+        Mydiary my_diary = MydiaryService.findByDiaryNumber(diaryNumber);
+        if (!my_diary.getId().equals(userId)) {
+            return new ResponseEntity<>("Not authorized", HttpStatus.UNAUTHORIZED);
+        }
+
+        my_diary.setTitle(diaryTitle);
+        my_diary.setContent(diaryContent);
+        my_diary.setIsPublic(visibility.equals("public"));
+        MydiaryService.saveMydiary(my_diary);
+
+        return new ResponseEntity<>("수정이 완료되었습니다.", HttpStatus.OK);
     }
     
 

@@ -794,7 +794,8 @@ body{
   	margin-bottom: 30px;
 }
 
-.writing-btn:hover {
+.writing-btn:hover,
+.modify-btn:hover {
     background-color: #FF8200;
 }
 

@@ -38,4 +38,10 @@ public class MydiaryService {
             throw new RuntimeException("Diary not found or not authorized to delete");
         }
     }
+    
+    public Mydiary findByDiaryNumber(BigInteger diaryNumber) {
+        return MydiaryRepository.findById(diaryNumber)
+                .orElseThrow(() -> new RuntimeException("Diary not found"));
+    }
+
 }

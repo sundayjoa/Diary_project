@@ -262,6 +262,34 @@
 		        $('#my-popup').hide();
 		        $('#modify-popup').show();
 		    });
+		 	
+		    $('#modifyForm').on('submit', function(event) {
+		        event.preventDefault();
+
+		        var title = $('#modifyTitle').val();
+		        var content = $('#modifyContent').val();
+		        var visibility = $('input[name="visibility"]:checked').val();
+
+		        if (confirm('정말로 수정하시겠습니까?')) {
+		            $.ajax({
+		                url: '/api/my_diary/update/' + currentDiaryNumber,
+		                type: 'PUT',
+		                data: {
+		                    diaryTitle: title,
+		                    diaryContent: content,
+		                    visibility: visibility
+		                },
+		                success: function(result) {
+		                    alert('수정이 완료되었습니다.');
+		                    window.location.href = 'my_diary.html';
+		                },
+		                error: function(error) {
+		                    console.error("Error updating post:", error);
+		                    alert('저장 중 문제가 발생했습니다.');
+		                }
+		            });
+		        }
+		    });
 		
 		    // 팝업 닫기 이벤트
 		    $('#closeModify').on('click', function() {
