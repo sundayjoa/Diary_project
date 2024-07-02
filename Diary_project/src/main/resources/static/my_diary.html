@@ -203,6 +203,7 @@
 		                        '<p class="public-check">' + (post.isPublic ? '공개' : '비공개') + '</p>' +
 		                        '<p class="public-author">' + post.name + '</p>' +
 		                        '<p class="public-dateweather">' + formattedDate + '</p>' +
+		                        (post.isPublic ? '<div class="public-like-container" data-liked="false"><span class="like-icon">&#9825;</span><span class="like-count">' + post.likeCount + '</span></div>' : '') + 
 		                        '</div>';
 		                    $('.my-diary-container').append(postHtml);
 		                });
@@ -499,6 +500,24 @@
 	                }
 	            });
 	        });
+	        
+	        function toggleLike(element) {
+	            var likeContainer = $(element).closest('.like-container');
+	            var liked = likeContainer.data('liked');
+	            var likeCountSpan = likeContainer.find('.like-count');
+	            var likeCount = parseInt(likeCountSpan.text());
+
+	            if (liked) {
+	                likeCount--;
+	                element.innerHTML = '&#9825;'; 
+	            } else {
+	                likeCount++;
+	                element.innerHTML = '&#9829;'; 
+	            }
+
+	            likeContainer.data('liked', !liked);
+	            likeCountSpan.text(likeCount);
+	        }
 	        
 	    </script>
     </body>

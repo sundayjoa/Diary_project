@@ -265,7 +265,7 @@ body{
 }
 
 .like-count {
-    margin-left: 10px;
+    margin-left: 5px;
     font-size: 18px;
 }
 
@@ -903,4 +903,12 @@ body{
 
 .deleteBtn:hover {
     background-color: #f8270a;
+}
+
+.public-like-container {
+	position: absolute;
+	bottom: 80px;
+	font-size: 16px;
+    margin-top: 5px;
+    right: 16px;
 }
