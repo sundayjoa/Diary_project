@@ -60,7 +60,7 @@
 		        <span class="close" id="closePopupBtn">&times;</span>
 		        	<p id="public-check" class="my-font-7"></p>
 		        	<div class="like-container" data-liked="false">
-		        	<span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
+		        	<span id="like-icon-2" class="like-icon" onclick="toggleLike(this)">&#9825;</span>
 		        	<p id="likeCount" class="like-count"></p>
 		        	</div>
 		            <h2 id="my-title" class="my-font-6"></h2>  
@@ -241,6 +241,29 @@
 		        $('#my-title').text(title);
 		        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
 		        $('#diary-date').text("작성일: " + date);
+		        
+		        
+		      //로그인 한 사람의 좋아요 여부
+				var likeIcon2 = $('#like-icon-2');
+                
+                $.ajax({
+                    url: '/api/like/check',
+                    type: 'GET',
+                    data: {
+                    	DiaryNumber: currentDiaryNumber
+                    },
+                    success: function(isLiked) {
+                        console.log("DiaryNumber:", currentDiaryNumber, "Liked:", isLiked); 
+                        if (isLiked === true || isLiked === 'true') {
+                            likeIcon2.html('&#9829;').css('color', 'red');
+                        } else {
+                            likeIcon2.html('&#9825;');
+                        }
+                    },
+                    error: function(error) {
+                        console.error("Error checking like status:", error);
+                    }
+                });
 		        
 		
 		        // 팝업 표시
