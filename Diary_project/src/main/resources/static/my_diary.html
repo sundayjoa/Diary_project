@@ -65,7 +65,7 @@
 		        	</div>
 		            <h2 id="my-title" class="my-font-6"></h2>  
 		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>
-		            <p id="diary-date" class="my-font-8"></p>  
+		            <p id="diary-date" class="my-font-8"></p>
 		            
 		            <button type="submit" id="deleteBtn" class="deleteBtn">삭제</button>
 		            <button type="submit" id="modifyBtn" class="modifyBtn">수정</button>
@@ -207,7 +207,7 @@
 		                        '<p class="public-check">' + (post.isPublic ? '공개' : '비공개') + '</p>' +
 		                        '<p class="public-author">' + post.name + '</p>' +
 		                        '<p class="public-dateweather">' + formattedDate + '</p>' +
-		                        (post.isPublic ? '<div class="public-like-container" data-liked="false"><span class="like-icon">&#9825;</span><span class="like-count">' + post.likeCount + '</span></div>' : '') + 
+		                        '<div class="public-like-container" data-liked="false"><span class="like-icon">&#9825;</span><span class="like-count">' + post.likeCount + '</span></div>' + 
 		                        '</div>';
 		                    $('.my-diary-container').append(postHtml);
 		                });
