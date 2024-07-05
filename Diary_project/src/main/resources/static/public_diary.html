@@ -81,6 +81,9 @@
         
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+        
+        	var UserID = null;
+        	
 	        $(document).ready(function() {
 	            console.log("Document ready");
 	            $.ajax({
@@ -92,6 +95,7 @@
 	                        $('#user-info').html(response.userName + ' 님');
 	                        $('#user-info').attr("href", "#");
 	                        $('#user-info').addClass('font-3');
+	                        UserID = response.userID;
 	                    } else {
 	                        $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
 	                    }
@@ -127,7 +131,7 @@
 			                        ('0' + date.getMinutes()).slice(-2);
 			                        
 			                    
-			                    var postHtml = '<div class="my-rectangle" data-diary-number="' + post.diaryNumber + '">' +
+			                    var postHtml = '<div class="my-rectangle" data-diary-number="' + post.diaryNumber + '" data-user-id="' + post.id + '">' +
 			                    	'<h2 class="public-title">' + post.title + '</h2>' +
 			                        '<p class="public-content">' + post.content + '</p>' +
 			                        '<p class="public-check">' + (post.isPublic ? '공개' : '비공개') + '</p>' +
@@ -191,19 +195,39 @@
 			        console.log("currentDiaryNumber:", currentDiaryNumber);
 			    });
 			    
-			 // 공개 일기장 내용 보기
+			    //WriterID 선언
+			    var WriterID;
+
+			    $(document).on('click', '.my-rectangle', function() {
+			        WriterID = $(this).data('user-id');
+			        console.log("user:", WriterID);
+			    });
+			    
+			    
+			 	// 공개 일기장 내용 보기
 			    $(document).on('click', '.my-rectangle', function() {
 			    	var likeCount = $(this).find('.like-count').text();
 			        var title = $(this).find('.public-title').text();
 			        var content = $(this).find('.public-content').text();
 			        var isPublic = $(this).find('.public-check').text();
 			        var date = $(this).find('.public-dateweather').text();
+			       
 			
 			        $('#likeCount').text(likeCount);
 			        $('#public-check').text(isPublic);
 			        $('#my-title').text(title);
 			        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
 			        $('#diary-date').text("작성일: " + date);
+			        
+			        if (UserID !== null && UserID.toString() === WriterID.toString()) {
+		                console.log("Buttons should be visible");
+		                $('#deleteBtn').removeClass('non-display');
+		                $('#modifyBtn').removeClass('non-display');
+		            } else {
+		                console.log("Buttons should be unvisible");
+		                $('#deleteBtn').addClass('non-display');
+		                $('#modifyBtn').addClass('non-display');
+		            }
 			        
 			        
 			      //로그인 한 사람의 좋아요 여부
@@ -256,12 +280,11 @@
 			            }
 			        });
 			    });
-			
-			    // 팝업 닫기 이벤트
+			  	
+			 	// 팝업 닫기 이벤트
 			    $('#closePopupBtn').on('click', function() {
 			        $('#public-popup').hide();
 			    });
-			    
 	        });
 	        
 		    </script>
