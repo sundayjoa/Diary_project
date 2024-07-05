@@ -60,7 +60,7 @@
 		        <span class="close" id="closePopupBtn">&times;</span>
 		        	<p id="public-check" class="my-font-7"></p>
 		        	<div class="like-container" data-liked="false">
-		        	<span id="like-icon-2" class="like-icon" onclick="toggleLike(this)">&#9825;</span>
+		        	<span id="like-icon-2" class="like-icon">&#9825;</span>
 		        	<p id="likeCount" class="like-count"></p>
 		        	</div>
 		            <h2 id="my-title" class="my-font-6"></h2>  
@@ -302,10 +302,34 @@
                         console.error("Error checking like status:", error);
                     }
                 });
-		        
-		
 		        // 팝업 표시
 		        $('#my-popup').show();
+		    });
+		    
+		    //좋아요 기능(추가 및 삭제)
+		    $(document).on('click', '#like-icon-2', function() {
+		        var likeIcon = $(this);
+		        $.ajax({
+		            url: '/api/like/toggle',
+		            type: 'POST',
+		            data: {
+		                DiaryNumber: currentDiaryNumber
+		            },
+		            success: function(response) {
+		                if (response === "좋아요 추가") {
+		                    likeIcon.html('&#9829;').css('color', 'red');
+		                    var likeCount = parseInt($('#likeCount').text()) + 1;
+		                    $('#likeCount').text(likeCount);
+		                } else {
+		                    likeIcon.html('&#9825;').css('color', '');
+		                    var likeCount = parseInt($('#likeCount').text()) - 1;
+		                    $('#likeCount').text(likeCount);
+		                }
+		            },
+		            error: function(error) {
+		                console.error("Error toggling like:", error);
+		            }
+		        });
 		    });
 		
 		    // 팝업 닫기 이벤트

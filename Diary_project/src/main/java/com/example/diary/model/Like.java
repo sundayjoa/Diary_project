@@ -14,9 +14,6 @@ public class Like {
 	@Column(name="DiaryNumber", columnDefinition = "BIGINT")
     private BigInteger diaryNumber;
 	
-	@Column(name="writer", length = 30, nullable = false)
-    private String writer;
-	
 	@Column(name="ID", length = 30, nullable = false)
     private String id;
 	
@@ -27,14 +24,6 @@ public class Like {
 
 	public void setDiaryNumber(BigInteger DiaryNumber) {
         this.diaryNumber = DiaryNumber;
-    }
-	
-	public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
     }
     
     public String getId() {
