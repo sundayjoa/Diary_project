@@ -105,6 +105,19 @@ public class MydiaryController {
         return new ResponseEntity<>("수정이 완료되었습니다.", HttpStatus.OK);
     }
     
+    //내 게시글 최신 4개
+    @PostMapping("/my_posts")
+    public List<Mydiary> getTop4Posts(HttpSession session) {
+        String userId = (String) session.getAttribute("userID");
+        
+        if (userId == null) {
+            return Collections.emptyList();
+        }
+        System.out.println("User ID: " + userId);
+        List<Mydiary> posts = MydiaryService.getTop4PostsById(userId);
+        return posts;
+    }
+    
     //공개 게시글
     @GetMapping("/public_posts")
     public List<Mydiary> getPublicPosts() {
