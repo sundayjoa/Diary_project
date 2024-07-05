@@ -16,4 +16,8 @@ public class LikeService {
     public boolean UserLiked(BigInteger diaryNumber, String id) {
         return likeRepository.findByDiaryNumberAndId(diaryNumber, id).isPresent();
     }
+    
+    public long getLikeCount(BigInteger diaryNumber) {
+        return likeRepository.countByDiaryNumber(diaryNumber);
+    }
 }

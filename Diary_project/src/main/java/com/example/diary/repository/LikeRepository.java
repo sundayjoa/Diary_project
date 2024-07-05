@@ -9,4 +9,6 @@ import com.example.diary.model.Like;
 
 public interface LikeRepository extends JpaRepository<Like, BigInteger> {
     Optional<Like> findByDiaryNumberAndId(BigInteger diaryNumber, String id);
+    
+    long countByDiaryNumber(BigInteger diaryNumber);
 }

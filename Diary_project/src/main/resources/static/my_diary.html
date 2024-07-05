@@ -207,9 +207,47 @@
 		                        '<p class="public-check">' + (post.isPublic ? '공개' : '비공개') + '</p>' +
 		                        '<p class="public-author">' + post.name + '</p>' +
 		                        '<p class="public-dateweather">' + formattedDate + '</p>' +
-		                        '<div class="public-like-container" data-liked="false"><span class="like-icon">&#9825;</span><span class="like-count">' + post.likeCount + '</span></div>' + 
+		                        '<div class="public-like-container" data-liked="false"><span class="like-icon">&#9825;</span><span class="like-count">0</span></div>' + 
 		                        '</div>';
 		                    $('.my-diary-container').append(postHtml);
+		                    
+		                 	// 좋아요 수 가져오기
+		                    var likeCountSpan = $('.my-rectangle[data-diary-number="' + post.diaryNumber + '"]').find('.like-count');
+		                    $.ajax({
+		                        url: '/api/like/count',
+		                        type: 'GET',
+		                        data: {
+		                            DiaryNumber: post.diaryNumber
+		                        },
+		                        success: function(likeCount) {
+		                            likeCountSpan.text(likeCount);
+		                        },
+		                        error: function(error) {
+		                            console.error("Error fetching like count:", error);
+		                        }
+		                    });
+		                    
+		                    //좋아요 여부 표시
+		                    var likeIcon = $('.my-rectangle[data-diary-number="' + post.diaryNumber + '"]').find('.like-icon');
+		                    
+		                    $.ajax({
+		                        url: '/api/like/check',
+		                        type: 'GET',
+		                        data: {
+		                            DiaryNumber: post.diaryNumber
+		                        },
+		                        success: function(isLiked) {
+		                            console.log("DiaryNumber:", post.diaryNumber, "Liked:", isLiked); 
+		                            if (isLiked === true || isLiked === 'true') {
+		                                likeIcon.html('&#9829;').css('color', 'red');
+		                            } else {
+		                                likeIcon.html('&#9825;');
+		                            }
+		                        },
+		                        error: function(error) {
+		                            console.error("Error checking like status:", error);
+		                        }
+		                    });
 		                });
 		            }
 		        },
