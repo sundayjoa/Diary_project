@@ -43,5 +43,9 @@ public class MydiaryService {
         return MydiaryRepository.findById(diaryNumber)
                 .orElseThrow(() -> new RuntimeException("Diary not found"));
     }
-
+    
+    //공개 게시글 최신 4개만 가져오기
+    public List<Mydiary> getTop4PublicPosts() {
+        return MydiaryRepository.findTop4ByIsPublicOrderByDateDesc(true);
+    }
 }

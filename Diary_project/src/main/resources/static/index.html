@@ -24,7 +24,7 @@
                 <a class="navbar-brand" href="index.html">
                     <img src="assets/star_diary_logo.png" alt="Brand Logo">
                 </a>
-                <a class="navbar-menu" href="#!">
+                <a class="navbar-menu" href="public_diary.html">
                     <img src="assets/PublicDiary_font.png">
                 </a>
                 <a class="navbar-menu" href="my_diary.html">
@@ -52,63 +52,36 @@
         </header>
         
         <!-- Public diary -->
-        <section class="py-5">
-        	<div class="container px-4 px-lg-5 my-5">
+        <section class="my-diary-section">
+        	<div class="my-diary-background container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="topic-title fw-bolder">공개 일기</h1>
-                    
-                    <div class="public-container">
-	                    <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				            <p class="public-like"></p>
-				            <div class="like-container" data-liked="false">
-				                <span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
-				                <span class="like-count">0</span>
-				            </div>
-				        </div>
 				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				            <div class="like-container" data-liked="false">
-				                <span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
-				                <span class="like-count">0</span>
-				            </div>
-				        </div>
+			        <div class="my-diary-container">
 				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				            <div class="like-container" data-liked="false">
-				                <span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
-				                <span class="like-count">0</span>
-				            </div>
-				        </div>
-				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				            <div class="like-container" data-liked="false">
-				                <span class="like-icon" onclick="toggleLike(this)">&#9825;</span>
-				                <span class="like-count">0</span>
-				            </div>
-				        </div>
-			        </div>
-                
-                	<a class="public-btn" href="#public">더 많은 일기 살펴보기</a>
+				    </div>
+				    
+				    <a class="public-btn" href="public_diary.html">더 많은 일기 살펴보기</a>
+				    
+		        </div>
                 	
-                </div>
             </div>
         </section>
+        
+        <!-- My diary pupup -->
+		<div id="public-popup" class="popup">
+		    <div class="my-popup-content">
+		        <span class="close" id="closePopupBtn">&times;</span>
+		        	<p id="public-check" class="my-font-7"></p>
+		        	<div class="like-container" data-liked="false">
+		        	<span id="like-icon-2" class="like-icon">&#9825;</span>
+		        	<p id="likeCount" class="like-count"></p>
+		        	</div>
+		            <h2 id="my-title" class="my-font-6"></h2>  
+		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>
+		            <p id="diary-date" class="my-font-8"></p> 
+		    </div>
+		</div>
         
         <!-- My diary -->
         <section class="my-section">
@@ -205,6 +178,163 @@
 	                document.getElementById('randomTopic').innerText = '주제를 불러오는데 실패했습니다.';
 	            });
 	        }
+	        
+	      	//게시글 
+	        $(document).ready(function() {
+	        	//게시글 가져오기
+		    	$.ajax({
+			        url: "/api/my_diary/public_posts",
+			        type: "GET",
+			        success: function(posts) {
+			            if (posts.length === 0) {
+			                $('.my-diary-container').append('<p>공개된 일기가 없습니다.</p>');
+			            } else {
+			                // 최신 순으로 정렬
+			                posts.forEach(function(post) {
+			                    var date = new Date(post.date);
+			                    var formattedDate = date.getFullYear() + '-' +
+			                        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+			                        ('0' + date.getDate()).slice(-2) + ' ' +
+			                        ('0' + date.getHours()).slice(-2) + ':' +
+			                        ('0' + date.getMinutes()).slice(-2);
+			                        
+			                    
+			                    var postHtml = '<div class="my-rectangle" data-diary-number="' + post.diaryNumber + '">' +
+			                    	'<h2 class="public-title">' + post.title + '</h2>' +
+			                        '<p class="public-content">' + post.content + '</p>' +
+			                        '<p class="public-check">' + (post.isPublic ? '공개' : '비공개') + '</p>' +
+			                        '<p class="public-author">' + post.name + '</p>' +
+			                        '<p class="public-dateweather">' + formattedDate + '</p>' +
+			                        '<div class="public-like-container" data-liked="false"><span class="like-icon">&#9825;</span><span class="like-count">0</span></div>' + 
+			                        '</div>';
+			                    $('.my-diary-container').append(postHtml);
+			                    
+			                 	// 좋아요 수 가져오기
+			                    var likeCountSpan = $('.my-rectangle[data-diary-number="' + post.diaryNumber + '"]').find('.like-count');
+			                    $.ajax({
+			                        url: '/api/like/count',
+			                        type: 'GET',
+			                        data: {
+			                            DiaryNumber: post.diaryNumber
+			                        },
+			                        success: function(likeCount) {
+			                            likeCountSpan.text(likeCount);
+			                        },
+			                        error: function(error) {
+			                            console.error("Error fetching like count:", error);
+			                        }
+			                    });
+			                    
+			                    //좋아요 여부 표시
+			                    var likeIcon = $('.my-rectangle[data-diary-number="' + post.diaryNumber + '"]').find('.like-icon');
+			                    
+			                    $.ajax({
+			                        url: '/api/like/check',
+			                        type: 'GET',
+			                        data: {
+			                            DiaryNumber: post.diaryNumber
+			                        },
+			                        success: function(isLiked) {
+			                            console.log("DiaryNumber:", post.diaryNumber, "Liked:", isLiked); 
+			                            if (isLiked === true || isLiked === 'true') {
+			                                likeIcon.html('&#9829;').css('color', 'red');
+			                            } else {
+			                                likeIcon.html('&#9825;');
+			                            }
+			                        },
+			                        error: function(error) {
+			                            console.error("Error checking like status:", error);
+			                        }
+			                    });
+			                });
+			            }
+			        },
+			        error: function(error) {
+			            console.error("Error fetching posts:", error);
+			            $('.my-diary-container').append('<p>Error fetching posts.</p>');
+			        }
+		        });
+	        	
+		    	//DiaryNumber 선언
+			    var currentDiaryNumber;
+
+			    $(document).on('click', '.my-rectangle', function() {
+			        currentDiaryNumber = $(this).data('diary-number');
+			        console.log("currentDiaryNumber:", currentDiaryNumber);
+			    });
+			    
+			    
+			    // 내 일기장 내용 보기
+			    $(document).on('click', '.my-rectangle', function() {
+			    	var likeCount = $(this).find('.like-count').text();
+			        var title = $(this).find('.public-title').text();
+			        var content = $(this).find('.public-content').text();
+			        var isPublic = $(this).find('.public-check').text();
+			        var date = $(this).find('.public-dateweather').text();
+			
+			        $('#likeCount').text(likeCount);
+			        $('#public-check').text(isPublic);
+			        $('#my-title').text(title);
+			        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
+			        $('#diary-date').text("작성일: " + date);
+			        
+			        
+			      //로그인 한 사람의 좋아요 여부
+					var likeIcon2 = $('#like-icon-2');
+	                
+	                $.ajax({
+	                    url: '/api/like/check',
+	                    type: 'GET',
+	                    data: {
+	                    	DiaryNumber: currentDiaryNumber
+	                    },
+	                    success: function(isLiked) {
+	                        console.log("DiaryNumber:", currentDiaryNumber, "Liked:", isLiked); 
+	                        if (isLiked === true || isLiked === 'true') {
+	                            likeIcon2.html('&#9829;').css('color', 'red');
+	                        } else {
+	                            likeIcon2.html('&#9825;');
+	                        }
+	                    },
+	                    error: function(error) {
+	                        console.error("Error checking like status:", error);
+	                    }
+	                });
+			        // 팝업 표시
+			        $('#public-popup').show();
+			    });
+			    
+			    //좋아요 기능(추가 및 삭제)
+			    $(document).on('click', '#like-icon-2', function() {
+			        var likeIcon = $(this);
+			        $.ajax({
+			            url: '/api/like/toggle',
+			            type: 'POST',
+			            data: {
+			                DiaryNumber: currentDiaryNumber
+			            },
+			            success: function(response) {
+			                if (response === "좋아요 추가") {
+			                    likeIcon.html('&#9829;').css('color', 'red');
+			                    var likeCount = parseInt($('#likeCount').text()) + 1;
+			                    $('#likeCount').text(likeCount);
+			                } else {
+			                    likeIcon.html('&#9825;').css('color', '');
+			                    var likeCount = parseInt($('#likeCount').text()) - 1;
+			                    $('#likeCount').text(likeCount);
+			                }
+			            },
+			            error: function(error) {
+			                console.error("Error toggling like:", error);
+			            }
+			        });
+			    });
+			
+			    // 팝업 닫기 이벤트
+			    $('#closePopupBtn').on('click', function() {
+			        $('#public-popup').hide();
+			    });
+	        });
 	    </script>
    
     </body>

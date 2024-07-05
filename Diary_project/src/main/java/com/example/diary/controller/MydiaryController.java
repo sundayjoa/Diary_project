@@ -105,5 +105,9 @@ public class MydiaryController {
         return new ResponseEntity<>("수정이 완료되었습니다.", HttpStatus.OK);
     }
     
-
+    //공개 게시글
+    @GetMapping("/public_posts")
+    public List<Mydiary> getPublicPosts() {
+        return MydiaryService.getTop4PublicPosts();
+    }
 }
