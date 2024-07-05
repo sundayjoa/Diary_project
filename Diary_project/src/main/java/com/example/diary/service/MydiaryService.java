@@ -48,4 +48,9 @@ public class MydiaryService {
     public List<Mydiary> getTop4PublicPosts() {
         return MydiaryRepository.findTop4ByIsPublicOrderByDateDesc(true);
     }
+    
+    //공개 게시글 저체 가져오기
+    public List<Mydiary> getPublicPosts(){
+    	return MydiaryRepository.findByIsPublicOrderByDateDesc(true);
+    }
 }

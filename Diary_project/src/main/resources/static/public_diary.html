@@ -39,19 +39,8 @@
             </div>
         </div>
     </nav>
-        
-        <!-- Topic recommendation -->
-        <header class="topic-background py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="topic-title fw-bolder">떠오르는 주제가 없으신가요?</h1>
-                    <p class="lead fw-normal mb-0">* 오늘의 일기 주제 *</p>
-                    <p class="topic-content fw-normal mb-0" id="randomTopic">주제를 가져오는 중입니다...</p>
-                </div>
-            </div>
-        </header>
-        
-        <!-- Public diary -->
+    
+    	<!-- Header -->
         <section class="my-diary-section">
         	<div class="my-diary-background container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
@@ -60,9 +49,6 @@
 			        <div class="my-diary-container">
 				        
 				    </div>
-				    
-				    <a class="public-btn" href="public_diary.html">더 많은 일기 살펴보기</a>
-				    
 		        </div>
                 	
             </div>
@@ -85,48 +71,6 @@
 		            <button type="submit" id="modifyBtn" class="modifyBtn non-display">수정</button>
 		    </div>
 		</div>
-        
-        <!-- My diary -->
-        <section class="my-section">
-        	<div class="my-background container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="topic-title fw-bolder">나의 일기장</h1>
-                    
-                    <div class="public-container">
-	                    <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				        </div>
-				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				        </div>
-				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				        </div>
-				        
-				        <div class="rectangle">
-				            <h2 class="public-title">제목</h2>
-				            <p class="public-content">내용</p>
-				            <p class="public-author">작성자</p>
-				            <p class="public-dateweather">날짜 날씨</p>
-				        </div>
-			        </div>
-                
-                	<a class="my-btn" href="my_diary.html">일기 쓰러 가기!</a>
-                	
-                </div>
-            </div>
-        </section>
         
         <!-- footer -->
         <footer class="footer-section">
@@ -163,30 +107,11 @@
 	            });
 	        });
 	        
-	     	// 주제 가져오기
-	     	document.addEventListener('DOMContentLoaded', function() {
-	            fetchRandomTopic();
-	        });
-	     	
-	        function fetchRandomTopic() {
-	            fetch('/api/topic/random')
-	            .then(response => response.json())
-	            .then(data => {
-	            	console.log(data);
-	                document.getElementById('randomTopic').innerText = data.topic;
-	            })
-	            .catch(error => {
-	            	console.error('Error:', error);
-	                console.error('Error:', error);
-	                document.getElementById('randomTopic').innerText = '주제를 불러오는데 실패했습니다.';
-	            });
-	        }
-	        
-	      	//게시글 
+	      //게시글 
 	        $(document).ready(function() {
 	        	//게시글 가져오기
 		    	$.ajax({
-			        url: "/api/my_diary/public_posts",
+			        url: "/api/my_diary/all_public_posts",
 			        type: "GET",
 			        success: function(posts) {
 			            if (posts.length === 0) {
@@ -266,8 +191,7 @@
 			        console.log("currentDiaryNumber:", currentDiaryNumber);
 			    });
 			    
-			    
-			    // 공개 일기장 내용 보기
+			 // 공개 일기장 내용 보기
 			    $(document).on('click', '.my-rectangle', function() {
 			    	var likeCount = $(this).find('.like-count').text();
 			        var title = $(this).find('.public-title').text();
@@ -337,8 +261,9 @@
 			    $('#closePopupBtn').on('click', function() {
 			        $('#public-popup').hide();
 			    });
+			    
 	        });
-	    </script>
-   
+	        
+		    </script>
     </body>
 </html>

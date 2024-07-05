@@ -916,3 +916,7 @@ body{
 .like-icon.liked {
     color: red;
 }
+
+.non-display {
+	visibility: hidden;
+}

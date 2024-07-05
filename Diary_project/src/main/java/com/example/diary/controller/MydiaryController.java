@@ -110,4 +110,9 @@ public class MydiaryController {
     public List<Mydiary> getPublicPosts() {
         return MydiaryService.getTop4PublicPosts();
     }
+    
+    @GetMapping("/all_public_posts")
+    public List<Mydiary> getAllPublicPosts() {
+        return MydiaryService.getPublicPosts();
+    }
 }
