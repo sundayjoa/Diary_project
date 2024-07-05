@@ -71,6 +71,40 @@
 		            <button type="submit" id="modifyBtn" class="modifyBtn non-display">수정</button>
 		    </div>
 		</div>
+		
+		<!-- Modify popup -->
+		<div id="modify-popup" class="popup">
+			<div class="popup-content">
+				<span class="close" id="closeModify">&times;</span>
+				<h1 class="my-h1 text-center top">수정 하기</h1>
+				<form id="modifyForm">
+				<p class="my-font-1 text-center">제목</p> 
+				<div class="modify-container">
+					<input type="text" id="modifyTitle" name="modifyTitle" class="modifyTitle" required>
+				</div>
+				<p class="my-font-1 text-center">내용</p>
+				<div class="modify-container">
+					<textarea id="modifyContent" name="modifyContent" class="diaryContent" required></textarea><br><br>
+				</div>
+				
+				<div class="radio-group">
+                    <div class="radio-container">
+			            <input type="radio" id="public" name="visibility" value="public">
+			            <p>공개</p>
+		        	</div>
+		        	<div class="radio-container">
+			            <input type="radio" id="private" name="visibility" value="private">
+			            <p>비공개</p>
+		        	</div>
+	        	</div>
+	        	
+	        	<div class="modify-container">
+	        		<button type="submit" id="modify-btn" class="modify-btn">수정 완료</button>
+	        
+	        	</div>
+				</form>
+			</div>
+		</div>
         
         <!-- footer -->
         <footer class="footer-section">
@@ -220,11 +254,9 @@
 			        $('#diary-date').text("작성일: " + date);
 			        
 			        if (UserID !== null && UserID.toString() === WriterID.toString()) {
-		                console.log("Buttons should be visible");
 		                $('#deleteBtn').removeClass('non-display');
 		                $('#modifyBtn').removeClass('non-display');
 		            } else {
-		                console.log("Buttons should be unvisible");
 		                $('#deleteBtn').addClass('non-display');
 		                $('#modifyBtn').addClass('non-display');
 		            }
@@ -285,6 +317,79 @@
 			    $('#closePopupBtn').on('click', function() {
 			        $('#public-popup').hide();
 			    });
+			 	
+			 	// 일기장 수정하기
+			    $(document).on('click', '#modifyBtn', function() {
+			        var title = $('#my-title').text();
+			        var content = $('#my-diary-content').html().replace(/<br\s*\/?>/gi, '\n');
+			        var isPublic = $('#public-check').text().trim();
+
+			        $('#modifyTitle').val(title);
+			        $('#modifyContent').val(content);
+			        if (isPublic === '공개') {
+			            $('#public').prop('checked', true);
+			        } else if (isPublic === '비공개') {
+			            $('#private').prop('checked', true); 
+			        }
+			        
+			
+			        // 팝업 표시
+			        $('#my-popup').hide();
+			        $('#modify-popup').show();
+			    });
+			 	
+			    $('#modifyForm').on('submit', function(event) {
+			        event.preventDefault();
+
+			        var title = $('#modifyTitle').val();
+			        var content = $('#modifyContent').val();
+			        var visibility = $('input[name="visibility"]:checked').val();
+
+			        if (confirm('정말로 수정하시겠습니까?')) {
+			            $.ajax({
+			                url: '/api/my_diary/update/' + currentDiaryNumber,
+			                type: 'PUT',
+			                data: {
+			                    diaryTitle: title,
+			                    diaryContent: content,
+			                    visibility: visibility
+			                },
+			                success: function(result) {
+			                    alert('수정이 완료되었습니다.');
+			                    window.location.href = 'public_diary.html';
+			                },
+			                error: function(error) {
+			                    console.error("Error updating post:", error);
+			                    alert('저장 중 문제가 발생했습니다.');
+			                }
+			            });
+			        }
+			    });
+			
+			    // 팝업 닫기 이벤트
+			    $('#closeModify').on('click', function() {
+			        $('#modify-popup').hide();
+			    });
+			    
+			 	// 게시글 삭제
+			    $(document).on('click', '.deleteBtn', function(event) {
+			        event.stopPropagation();
+			        if (confirm('정말로 삭제하시겠습니까?')) {
+			            $.ajax({
+			                url: '/api/my_diary/delete/' + currentDiaryNumber,
+			                type: 'DELETE',
+			                success: function(result) {
+			                    alert('삭제되었습니다.');
+			                    location.reload();
+			                },
+			                error: function(error) {
+			                    console.error("Error deleting post:", error);
+			                    alert('삭제에 실패했습니다.');
+			                }
+			            });
+			        }
+			    });
+			    
 	        });
 	        
 		    </script>
