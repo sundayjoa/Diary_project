@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+       <meta charset="utf-8" />
+       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+       <meta name="description" content="" />
+       <meta name="author" content="" />
+       <title>별별일기</title>
+       <!-- Favicon-->
+       <link rel="icon" type="image/x-icon" href="assets/star_diary_logo.png" />
+       <!-- Bootstrap icons-->
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+       <!-- Google fonts-->
+       <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+       <!-- Core theme CSS (includes Bootstrap)-->
+       <link href="css/base.css?after" rel="stylesheet" />
+   </head>
+
+
+	<body>
+	
+	<!-- Navigation-->
+    <nav class="navbar navbar-light bg-light static-top custom-navbar">
+	      <div class="container">
+	          <div class="navbar-menu-group">
+	              <a class="navbar-brand" href="index.html">
+	                  <img src="assets/star_diary_logo.png" alt="Brand Logo">
+	              </a>
+	              <a class="navbar-menu" href="public_diary.html">
+	                  <img src="assets/PublicDiary_font.png">
+	              </a>
+	              <a class="navbar-menu" href="my_diary.html">
+	                  <img src="assets/diary_font.png">
+	              </a>
+	              <a class="navbar-menu" href="exchange_diary.html">
+	                  <img src="assets/ExchangDiary_font.png">
+	              </a>
+	          </div>
+	          <div class="ml-auto">
+	              <a id="user-info" class="nav-link"></a>
+	          </div>
+	      </div>
+	  </nav>
+	  
+	  <!--Exchange diary -->
+        <section class="my-diary-section">
+        	<div class="my-diary-background container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="topic-title fw-bolder">교환 일기</h1>
+                    
+                    <div class="exchange-diary-container">
+				        
+				    </div>    
+
+		        </div>
+                	
+            </div>
+        </section>
+
+
+	<!-- footer -->
+    <footer class="footer-section">
+        <div class="my-background footer-container">
+        	<p class="text-center text-white">Starry Diary Project<br><br> 개발자: 전효주 </p>
+        </div>
+    </footer>
+		
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+	    $(document).ready(function() {
+	        console.log("Document ready");
+	        $.ajax({
+	            type: 'GET',
+	            url: '/api/session/userinfo',
+	            success: function(response) {
+	                console.log("AJAX success", response);
+	                if (response && response.userID && response.userName) {
+	                    $('#user-info').html(response.userName + ' 님');
+	                    $('#user-info').attr("href", "#");
+	                    $('#user-info').addClass('font-3');
+	                } else {
+	                    $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("AJAX error", status, error);
+	                if (xhr.status === 204) {
+	                    $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
+	                } else {
+	                    $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
+	                }
+	            }
+	        });
+	    });
+	
+	</script>
+	
+	</body>
+
+
+</html>
