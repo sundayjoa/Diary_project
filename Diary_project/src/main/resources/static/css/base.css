@@ -253,7 +253,8 @@ body{
     margin-top: 10px;
 }
 
-.like-icon {
+.like-icon,
+.like-icon-3 {
     font-size: 24px;
     cursor: pointer;
     color: black; 
@@ -264,7 +265,12 @@ body{
     color: #ff0000;
 }
 
-.like-count {
+.like-container[data-liked="true"] .like-icon-3 {
+    color: #ff0000;
+}
+
+.like-count,
+.my-like-count {
     margin-left: 5px;
     font-size: 18px;
 }
@@ -478,7 +484,8 @@ body{
 	background-color: white;
 }
 
-.my-diary-container {
+.my-diary-container,
+.public-diary-container {
 	margin-top: 60px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -489,7 +496,8 @@ body{
     gap: 20px; 
 }
 
-.my-rectangle {
+.my-rectangle,
+.my-post-rectangle {
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 15px;
@@ -508,14 +516,16 @@ body{
 	background-color: #f0f0f0;
 }
 
-.public-title {
+.public-title,
+.my-title {
     margin-bottom: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.public-content {
+.public-content,
+.my-content {
     flex-grow: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -527,7 +537,8 @@ body{
 }
 
 
-.public-author, .public-dateweather {
+.public-author, .public-dateweather,
+.my-author, my-dateweather {
     margin-top: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -905,7 +916,8 @@ body{
     background-color: #f8270a;
 }
 
-.public-like-container {
+.public-like-container,
+.my-like-container {
 	position: absolute;
 	bottom: 80px;
 	font-size: 16px;
@@ -914,6 +926,10 @@ body{
 }
 
 .like-icon.liked {
+    color: red;
+}
+
+.like-icon-3.liked {
     color: red;
 }
 
