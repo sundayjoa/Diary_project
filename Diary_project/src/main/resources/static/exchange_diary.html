@@ -56,6 +56,35 @@
                 	
             </div>
         </section>
+        
+        <!-- writing button -->
+        <section class="my-button-section">
+        	<div class="my-diary-background container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    
+                    <a class="my-btn" href="#" id="openPopupBtn">일기 쓰러 가기!</a>
+                    
+                    <!-- 팝업창 -->
+			        <div id="writing-popup" class="popup">
+			            <div class="popup-content">
+			                <span class="close" id="close-writing-PopupBtn">&times;</span>
+			                <h1 class="my-h1">교환 일기 작성</h1>
+			                
+			                <form id="ExchangeForm">
+			                	<p class="my-font-1">제목</p>  
+			                    <input type="text" id="diaryTitle" name="diaryTitle" class="diaryTitle" placeholder="제목을 입력해주세요" required>
+			                    <p class="my-font-2">내용</p>  
+			                    <textarea id="diaryContent" name="diaryContent" class="diaryContent" placeholder="내용을 입력해주세요" required></textarea><br><br>
+			                    
+			                    
+			                    <button type="submit" id="writing-btn" class="writing-btn">작성 완료</button>
+			                </form>
+			            </div>
+			         </div>
+			    </div>
+			</div>
+			
+		</section>
 
 
 	<!-- footer -->
@@ -92,6 +121,96 @@
 	            }
 	        });
 	    });
+	    
+	 	// 팝업 열기 버튼
+        document.getElementById('openPopupBtn').onclick = function(event) {
+            event.preventDefault();
+            document.getElementById('writing-popup').style.display = 'block';
+            fetchRandomTopic();
+        }
+
+        // 팝업 닫기 버튼
+        document.getElementById('close-writing-PopupBtn').onclick = function() {
+            document.getElementById('writing-popup').style.display = 'none';
+        }
+
+        // 일기 폼 제출
+        document.getElementById('ExchangeForm').onsubmit = function(event) {
+            event.preventDefault();
+            alert('일기가 저장되었습니다!');
+            document.getElementById('writing-popup').style.display = 'none';
+        }
+        
+        <!-- 일기 저장 -->
+     	function validateForm() {
+            const diaryTitle = document.getElementById('diaryTitle').value;
+            const diaryContent = document.getElementById('diaryContent').value;
+            
+            if (diaryTitle.length < 1) {
+                alert('제목은 빈칸으로 둘 수 없습니다.');
+                return false;
+            }
+
+            if (diaryContent.length < 1) {
+                alert('내용은 비워둘 수 없습니다.');
+                return false;
+            }
+
+
+            return true;
+        }
+
+        async function checkUserSession() {
+        	const response = await fetch('/api/session/userinfo', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            if (response.status === 200) {
+                const result = await response.json();
+                return result.userID !== undefined;
+            } else {
+                return false;
+            }
+        }
+
+        $(document).ready(function() {
+            $('#writing-btn').on('click', async function(event) {
+                event.preventDefault();
+
+                if (!validateForm()) {
+                    return;
+                }
+
+                const isLoggedIn = await checkUserSession();
+                if (!isLoggedIn) {
+                    alert('일기장을 쓰시려면 로그인 해야 합니다.');
+                    return;
+                }
+
+                if (confirm('저장하시겠습니까?')) {
+                    const formData = {
+                        diaryTitle: $('#diaryTitle').val(),
+                        diaryContent: $('#diaryContent').val(),
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://localhost:8080/api/Exchange',
+                        data: formData,
+                        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                        success: function(response) {
+                            console.log('Success:', response);
+                            alert('다이어리 작성이 성공적으로 완료되었습니다.');
+                            window.location.href = 'exchange_diary.html';
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                            alert('다이어리 작성 중 오류가 발생했습니다.');
+                        }
+                    });
+                }
+            });
+        });
 	
 	</script>
 	

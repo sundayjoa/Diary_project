@@ -31,7 +31,6 @@ public class ExchangeController {
     @PostMapping
     public Exchange createDiary(@RequestParam("diaryTitle") String diaryTitle,
                              @RequestParam("diaryContent") String diaryContent,
-                             @RequestParam("visibility") String visibility,
                              HttpSession session) {
         String userID = (String) session.getAttribute("userID");
         String userName = (String) session.getAttribute("userName");
