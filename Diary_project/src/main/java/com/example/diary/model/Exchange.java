@@ -1,5 +1,8 @@
 package com.example.diary.model;
 
+import java.math.BigInteger;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,16 +10,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import java.math.BigInteger;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "my")
-public class Mydiary {
+@Table(name = "exchange")
+public class Exchange {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="DiaryNumber", columnDefinition = "BIGINT")
-    private BigInteger DiaryNumber;
+	@Column(name="ExchangeNumber", columnDefinition = "BIGINT")
+    private BigInteger exchangeNumber;
 		
     @Column(name="ID", length = 30, nullable = false)
     private String id;
@@ -30,20 +31,17 @@ public class Mydiary {
     
     @Column(name = "date")
     private LocalDateTime date;
-    
-    @Column(name = "`public`")
-    private boolean isPublic;
-    
+	
 	@Column(name = "Name", length = 50)
     private String name;
 	
 	
-	public BigInteger getDiaryNumber() {
-        return DiaryNumber;
+	public BigInteger getExchangeNumber() {
+        return exchangeNumber;
     }
 
-    public void setDiaryNumber(BigInteger DiaryNumber) {
-        this.DiaryNumber = DiaryNumber;
+    public void setExchangeNumber(BigInteger exchangeNumber) {
+        this.exchangeNumber = exchangeNumber;
     }
     
     public String getTitle() {
@@ -76,14 +74,6 @@ public class Mydiary {
 
     public void setId(String id) {
         this.id = id;
-    }
-    
-    public boolean getIsPublic() {
-        return isPublic;
-    }
-
-    public void setIsPublic(boolean isPublic) {
-        this.isPublic = isPublic;
     }
     
     public String getName() {

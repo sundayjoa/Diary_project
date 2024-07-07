@@ -25,13 +25,6 @@ public class MydiaryService {
         System.out.println("Retrieved posts from repository: " + posts);
         return posts;
     }
-    
-    public List<Mydiary> getTop4PostsById(String id) {
-        List<Mydiary> posts = MydiaryRepository.findTop4ByidOrderByDateDesc(id);
-        return posts;
-    }
-    
-    //내 게시글 최신 4개만 가져오기
 
     public void saveDiary(Mydiary diary) {
         MydiaryRepository.save(diary);
@@ -50,8 +43,13 @@ public class MydiaryService {
         return MydiaryRepository.findById(diaryNumber)
                 .orElseThrow(() -> new RuntimeException("Diary not found"));
     }
-   
     
+    //내 게시글 최신 4개만 가져오기
+    public List<Mydiary> getTop4PostsById(String id) {
+        List<Mydiary> posts = MydiaryRepository.findTop4ByidOrderByDateDesc(id);
+        return posts;
+    }
+   
     //공개 게시글 최신 4개만 가져오기
     public List<Mydiary> getTop4PublicPosts() {
         return MydiaryRepository.findTop4ByIsPublicOrderByDateDesc(true);
