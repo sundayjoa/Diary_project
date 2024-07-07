@@ -66,8 +66,7 @@
 		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>
 		            <p id="diary-date" class="my-font-8"></p>
 		            
-		            <button type="submit" id="deleteBtn" class="deleteBtn non-display">삭제</button>
-		            <button type="submit" id="modifyBtn" class="modifyBtn non-display">수정</button>
+		            <button type="submit" id="addPopupBtn" class="my-btn">교환일기 잇기</button>
 		    </div>
 		</div>
         
@@ -207,14 +206,6 @@
 	        $('#my-title').text(title);
 	        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
 	        $('#diary-date').text("작성일: " + date);
-	        
-	        if (UserID !== null && UserID.toString() === WriterID.toString()) {
-                $('#deleteBtn').removeClass('non-display');
-                $('#modifyBtn').removeClass('non-display');
-            } else {
-                $('#deleteBtn').addClass('non-display');
-                $('#modifyBtn').addClass('non-display');
-            }
 
 	        
 	     // 팝업 표시
@@ -291,7 +282,7 @@
                     return;
                 }
 
-                if (confirm('저장하시겠습니까?')) {
+                if (confirm('교환 일기는 수정 및 삭제가 불가능 합니다. 저장하시겠습니까?')) {
                     const formData = {
                         diaryTitle: $('#diaryTitle').val(),
                         diaryContent: $('#diaryContent').val(),
