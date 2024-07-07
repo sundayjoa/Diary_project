@@ -57,6 +57,20 @@
             </div>
         </section>
         
+        <!-- Exchange diary pupup -->
+		<div id="exchange-popup" class="popup">
+		    <div class="my-popup-content">
+		        <span class="close" id="closePopupBtn">&times;</span>
+
+		            <h2 id="my-title" class="my-font-6"></h2>  
+		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>
+		            <p id="diary-date" class="my-font-8"></p>
+		            
+		            <button type="submit" id="deleteBtn" class="deleteBtn non-display">삭제</button>
+		            <button type="submit" id="modifyBtn" class="modifyBtn non-display">수정</button>
+		    </div>
+		</div>
+        
         <!-- writing button -->
         <section class="my-button-section">
         	<div class="my-diary-background container px-4 px-lg-5 my-5">
@@ -96,6 +110,9 @@
 		
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
+	
+		var UserID = null;
+	
 	    $(document).ready(function() {
 	        console.log("Document ready");
 	        $.ajax({
@@ -107,6 +124,7 @@
 	                    $('#user-info').html(response.userName + ' 님');
 	                    $('#user-info').attr("href", "#");
 	                    $('#user-info').addClass('font-3');
+	                    UserID = response.userID;
 	                } else {
 	                    $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
 	                }
@@ -145,7 +163,7 @@
 	                        ('0' + date.getMinutes()).slice(-2);
 	                        
 	                    
-	                    var postHtml = '<div class="my-rectangle" data-exchange-number="' + post.exchangeNumber + '">' +
+	                    var postHtml = '<div class="my-rectangle" data-exchange-number="' + post.exchangeNumber + + '" data-user-id="' + post.id + '">' +
 	                    	'<h2 class="public-title">' + post.title + '</h2>' +
 	                        '<p class="public-content">' + post.content + '</p>' +
 	                        '<p class="public-author">' + post.name + '</p>' +
@@ -162,6 +180,44 @@
 	        }
 	    });
       });
+	  	
+	  	//ExchangeNumber 선언
+	    var currentExchangeNumber;
+
+	    $(document).on('click', '.my-rectangle', function() {
+	        currentDiaryNumber = $(this).data('exchange-number');
+	        console.log("currentExchangeNumber:", currentExchangeNumber);
+	    });
+	    
+	    //WriterID 선언
+	    var WriterID;
+
+	    $(document).on('click', '.my-rectangle', function() {
+	        WriterID = $(this).data('user-id');
+	        console.log("user:", WriterID);
+	    })
+	  	
+	    
+	 	// 공개 일기장 내용 보기
+	    $(document).on('click', '.my-rectangle', function() {
+	    	var title = $(this).find('.public-title').text();
+	        var content = $(this).find('.public-content').text();
+	        var date = $(this).find('.public-dateweather').text();
+	       
+	        $('#my-title').text(title);
+	        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
+	        $('#diary-date').text("작성일: " + date);
+	        
+	        
+	        
+	     // 팝업 표시
+	        $('#exchange-popup').show();
+	    });
+	 	
+	 	// 팝업 닫기 이벤트
+	    $('#closePopupBtn').on('click', function() {
+	        $('#exchange-popup').hide();
+	    });
 	    
 	 	// 팝업 열기 버튼
         document.getElementById('openPopupBtn').onclick = function(event) {
