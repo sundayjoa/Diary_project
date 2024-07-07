@@ -163,7 +163,7 @@
 	                        ('0' + date.getMinutes()).slice(-2);
 	                        
 	                    
-	                    var postHtml = '<div class="my-rectangle" data-exchange-number="' + post.exchangeNumber + + '" data-user-id="' + post.id + '">' +
+	                        var postHtml = '<div class="my-rectangle" data-exchange-number="' + post.exchangeNumber + '" data-writer-id="' + post.id + '">' +
 	                    	'<h2 class="public-title">' + post.title + '</h2>' +
 	                        '<p class="public-content">' + post.content + '</p>' +
 	                        '<p class="public-author">' + post.name + '</p>' +
@@ -185,7 +185,7 @@
 	    var currentExchangeNumber;
 
 	    $(document).on('click', '.my-rectangle', function() {
-	        currentDiaryNumber = $(this).data('exchange-number');
+	        currentExchangeNumber = $(this).data('exchange-number');
 	        console.log("currentExchangeNumber:", currentExchangeNumber);
 	    });
 	    
@@ -193,8 +193,8 @@
 	    var WriterID;
 
 	    $(document).on('click', '.my-rectangle', function() {
-	        WriterID = $(this).data('user-id');
-	        console.log("user:", WriterID);
+	        WriterID = $(this).data('writer-id');
+	        console.log("writer:", WriterID);
 	    })
 	  	
 	    
@@ -208,7 +208,14 @@
 	        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
 	        $('#diary-date').text("작성일: " + date);
 	        
-	        
+	        if (UserID !== null && UserID.toString() === WriterID.toString()) {
+                $('#deleteBtn').removeClass('non-display');
+                $('#modifyBtn').removeClass('non-display');
+            } else {
+                $('#deleteBtn').addClass('non-display');
+                $('#modifyBtn').addClass('non-display');
+            }
+
 	        
 	     // 팝업 표시
 	        $('#exchange-popup').show();
