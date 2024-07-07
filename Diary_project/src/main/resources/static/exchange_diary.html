@@ -122,6 +122,47 @@
 	        });
 	    });
 	    
+	  	//교환 일기 첫 게시글 
+        $(document).ready(function() {
+        //교환 일기 가져오기
+	    $.ajax({
+	        url: "/api/Exchange/posts",
+	        type: "POST",
+	        success: function(posts) {
+	            if (posts.length === 0) {
+	                $('.exchange-diary-container').append('<p>일기장을 작성해보세요!</p>');
+	            } else {
+	                // 최신 순으로 정렬
+	                posts.sort(function(a, b) {
+	                    return new Date(b.date) - new Date(a.date);
+	                });
+	                posts.forEach(function(post) {
+	                    var date = new Date(post.date);
+	                    var formattedDate = date.getFullYear() + '-' +
+	                        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+	                        ('0' + date.getDate()).slice(-2) + ' ' +
+	                        ('0' + date.getHours()).slice(-2) + ':' +
+	                        ('0' + date.getMinutes()).slice(-2);
+	                        
+	                    
+	                    var postHtml = '<div class="my-rectangle" data-exchange-number="' + post.exchangeNumber + '">' +
+	                    	'<h2 class="public-title">' + post.title + '</h2>' +
+	                        '<p class="public-content">' + post.content + '</p>' +
+	                        '<p class="public-author">' + post.name + '</p>' +
+	                        '<p class="public-dateweather">' + formattedDate + '</p>' +
+	                        '</div>';
+	                    $('.exchange-diary-container').append(postHtml);
+	                    
+	                });
+	            }
+	        },
+	        error: function(error) {
+	            console.error("Error fetching posts:", error);
+	            $('.my-diary-container').append('<p>Error fetching posts.</p>');
+	        }
+	    });
+      });
+	    
 	 	// 팝업 열기 버튼
         document.getElementById('openPopupBtn').onclick = function(event) {
             event.preventDefault();
