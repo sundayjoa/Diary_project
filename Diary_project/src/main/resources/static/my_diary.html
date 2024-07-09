@@ -66,6 +66,7 @@
 		            <h2 id="my-title" class="my-font-6"></h2>  
 		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>
 		            <p id="diary-date" class="my-font-8"></p>
+		            <p id="writer-name" class="my-font-9"></p>
 		            
 		            <button type="submit" id="deleteBtn" class="deleteBtn">삭제</button>
 		            <button type="submit" id="modifyBtn" class="modifyBtn">수정</button>
@@ -273,12 +274,14 @@
 		        var content = $(this).find('.public-content').text();
 		        var isPublic = $(this).find('.public-check').text();
 		        var date = $(this).find('.public-dateweather').text();
+		        var writer = $(this).find('.public-author').text();
 		
 		        $('#likeCount').text(likeCount);
 		        $('#public-check').text(isPublic);
 		        $('#my-title').text(title);
 		        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
 		        $('#diary-date').text("작성일: " + date);
+		        $('#writer-name').text("작성자: " + writer);
 		        
 		        
 		      //로그인 한 사람의 좋아요 여부
@@ -594,24 +597,6 @@
 	            });
 	        });
 	        
-	        function toggleLike(element) {
-	            var likeContainer = $(element).closest('.like-container');
-	            var liked = likeContainer.data('liked');
-	            var likeCountSpan = likeContainer.find('.like-count');
-	            var likeCount = parseInt(likeCountSpan.text());
-
-	            if (liked) {
-	                likeCount--;
-	                element.innerHTML = '&#9825;'; 
-	            } else {
-	                likeCount++;
-	                element.innerHTML = '&#9829;'; 
-	                $(element).addClass('liked');
-	            }
-
-	            likeContainer.data('liked', !liked);
-	            likeCountSpan.text(likeCount);
-	        }
 	        
 	    </script>
     </body>

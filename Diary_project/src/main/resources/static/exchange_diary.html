@@ -65,9 +65,34 @@
 		            <h2 id="my-title" class="my-font-6"></h2>  
 		            <p id="my-diary-content" class="my-font-2 my-diary-content"></p>
 		            <p id="diary-date" class="my-font-8"></p>
+		            <p id="writer-name" class="my-font-9"></p>
 		            
 		            <button type="submit" id="addPopupBtn" class="my-btn">교환일기 잇기</button>
 		    </div>
+		</div>
+		
+		<!-- Join Exchange diary -->
+		<div id="join-popup" class="popup">
+			<div class="popup-content">
+				<span class="close" id="closeJoin">&times;</span>
+				<h1 class="my-h1 text-center top">교환 일기</h1>
+				<form id="joinForm">
+					<p class="my-font-1 text-center">제목</p>
+					<div class="join-container">
+						<input type="text" id="joinTitle" name="joinTitle" class="joinTitle" required>
+					</div>
+					<p class="my-font-1 text-center">내용</p>
+					<div class="join-container">
+						<textarea id="joinContent" name="joinContent" class="joinContent" required></textarea><br><br>
+					</div>
+					
+					<div class="join-container">
+						<button type="submit" id="join-btn" class="join-btn">작성 완료</button>
+					</div>
+				
+				</form>
+			
+			</div>
 		</div>
         
         <!-- writing button -->
@@ -202,10 +227,12 @@
 	    	var title = $(this).find('.public-title').text();
 	        var content = $(this).find('.public-content').text();
 	        var date = $(this).find('.public-dateweather').text();
+	        var writer = $(this).find('.public-author').text();
 	       
 	        $('#my-title').text(title);
 	        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
 	        $('#diary-date').text("작성일: " + date);
+	        $('#writer-name').text("작성자: " + writer);
 
 	        
 	     // 팝업 표시
@@ -221,7 +248,6 @@
         document.getElementById('openPopupBtn').onclick = function(event) {
             event.preventDefault();
             document.getElementById('writing-popup').style.display = 'block';
-            fetchRandomTopic();
         }
 
         // 팝업 닫기 버튼
@@ -306,6 +332,26 @@
                 }
             });
         });
+        
+        //교환일기 잇기 팝업창
+        document.getElementById('addPopupBtn').onclick = function(event) {
+            event.preventDefault();
+            document.getElementById('join-popup').style.display = 'block';
+        }
+        
+     	//교환일기 잇기 팝업창 닫기
+        document.getElementById('closeJoin').onclick = function() {
+            document.getElementById('join-popup').style.display = 'none';
+        }
+     	
+        //교환일기 잇기 폼 제출
+        document.getElementById('joinForm').onsubmit = function(event) {
+            event.preventDefault();
+            alert('교환 일기가 저장되었습니다!');
+            document.getElementById('join-popup').style.display = 'none';
+        }
+
+
 	
 	</script>
 	

@@ -283,7 +283,7 @@ body{
     transition: background-color 0.3s;
     margin-right: 0; /* 추가 */
   	margin-left: auto;
-  	margin-top: 40px;
+  	margin-top: 80px;
 }
 
 .public-btn:hover{
@@ -649,6 +649,14 @@ body{
     margin-bottom: 20px;
 }
 
+.my-font-9 {
+	position: absolute;
+	font-size: 16px;
+    color: #808080;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
 /* 주제 추천 섹션 */
 .hidden-section {
     display: none;
@@ -746,7 +754,8 @@ body{
     margin-top: 10px;
 }
 
-.diaryContent{
+.diaryContent,
+.joinContent{
 	width: 80%;
 	height: 500px;
     padding: 10px;
@@ -797,7 +806,8 @@ body{
 }
 
 .writing-btn:hover,
-.modify-btn:hover {
+.modify-btn:hover,
+.join-btn:hover {
     background-color: #FF8200;
 }
 
@@ -837,7 +847,7 @@ body{
     font-weight: bold; 
     transition: background-color 0.3s;
   	margin-left: 15px;
-  	margin-top: 30px;
+  	margin-top: 80px;
   	margin-bottom: 30px;
 }
 
@@ -845,7 +855,8 @@ body{
     background-color: #004080;
 }
 
-.modifyTitle{
+.modifyTitle,
+.joinTitle{
 	width: 80%;
 	height: 40px;
     padding: 10px;
@@ -857,13 +868,15 @@ body{
     margin-top: 10px;
 }
 
-.modify-container {
+.modify-container,
+.join-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.modify-btn {
+.modify-btn,
+.join-btn {
     display: inline-block;
     padding: 5px 10px;
     background-color: #FFC846; 
@@ -899,7 +912,7 @@ body{
     font-weight: bold; 
     transition: background-color 0.3s;
     margin-right: 15px; 
-  	margin-top: 30px;
+  	margin-top: 80px;
   	margin-bottom: 30px;
 }
 
