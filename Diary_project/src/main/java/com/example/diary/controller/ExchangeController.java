@@ -52,15 +52,8 @@ public class ExchangeController {
     
     @PostMapping("/posts")
     public List<Exchange> getPosts(HttpSession session) {
-        String userId = (String) session.getAttribute("userID");
-        System.out.println("Checking session for userID: " + userId);
         
-        if (userId == null) {
-            System.out.println("User is not logged in");
-            return Collections.emptyList();
-        }
-        System.out.println("User ID: " + userId);
-        List<Exchange> posts = ExchangeService.getPostsById(userId);
+        List<Exchange> posts = ExchangeService.getAllposts();
         System.out.println("Number of posts found: " + posts.size());
         return posts;
     }

@@ -20,10 +20,8 @@ public class ExchangeService {
         return ExchangeRepository.save(Exchange);
     }
     
-    public List<Exchange> getPostsById(String id) {
-        List<Exchange> posts = ExchangeRepository.findById(id);
-        System.out.println("Retrieved posts from repository: " + posts);
-        return posts;
+    public List<Exchange> getAllposts() {
+        return ExchangeRepository.findAll();
     }
 
     public void saveExchange(Exchange exchange) {
