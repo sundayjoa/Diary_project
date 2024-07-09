@@ -280,6 +280,25 @@
 
             return true;
         }
+     	
+     	<!-- 일기 저장 -->
+     	function commentForm() {
+            const joinTitle = document.getElementById('joinTitle').value;
+            const joinContent = document.getElementById('joinContent').value;
+            
+            if (joinTitle.length < 1) {
+                alert('제목은 빈칸으로 둘 수 없습니다.');
+                return false;
+            }
+
+            if (joinContent.length < 1) {
+                alert('내용은 비워둘 수 없습니다.');
+                return false;
+            }
+
+
+            return true;
+        }
 
         async function checkUserSession() {
         	const response = await fetch('/api/session/userinfo', {
@@ -350,6 +369,46 @@
             alert('교환 일기가 저장되었습니다!');
             document.getElementById('join-popup').style.display = 'none';
         }
+        
+        $(document).ready(function(){
+        	$('#join-btn').on('click', async function(event){
+        		event.preventDefault();
+        		
+        		if(!commentForm()){
+        			return;
+        		}
+        		
+        		const isLoggedIn = await checkUserSession();
+        		if(!isLoggedIn){
+        			alert('일기장을 쓰시려면 로그인 해야 합니다.');
+        			return;
+        		}
+        		
+        		if (confirm('교환 일기는 수정 및 삭제가 불가능 합니다. 저장하시겠습니까?')) {
+                    const formData = {
+                        joinTitle: $('#joinTitle').val(),
+                        joinContent: $('#joinContent').val(),
+                        ExchangeNumber: currentExchangeNumber,
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://localhost:8080/api/comment',
+                        data: formData,
+                        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                        success: function(response) {
+                            console.log('Success:', response);
+                            alert('다이어리 작성이 성공적으로 완료되었습니다.');
+                            window.location.reload();
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                            alert('다이어리 작성 중 오류가 발생했습니다.');
+                        }
+                    });
+                }
+            });
+        });
 
 
 	

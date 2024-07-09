@@ -23,8 +23,13 @@ public class CommentController {
     @PostMapping
     public Comment createDiary(@RequestParam("joinTitle") String joinTitle,
                              @RequestParam("joinContent") String joinContent,
-                             @RequestParam("ExchangeNumber") Long exchangeNumber,
+                             @RequestParam("ExchangeNumber") Long ExchangeNumber,
                              HttpSession session) {
+    	
+    	System.out.println("Received joinTitle: " + joinTitle);
+        System.out.println("Received joinContent: " + joinContent);
+        System.out.println("Received ExchangeNumber: " + ExchangeNumber);
+        
         String userID = (String) session.getAttribute("userID");
         String userName = (String) session.getAttribute("userName");
 
@@ -32,7 +37,7 @@ public class CommentController {
         	Comment comment = new Comment();
         	comment.setTitle(joinTitle);
         	comment.setContent(joinContent);
-        	comment.setExchangeNumber(exchangeNumber);
+        	comment.setExchangeNumber(ExchangeNumber);
         	comment.setDate(LocalDateTime.now());
         	comment.setName(userName);
         	comment.setId(userID);
