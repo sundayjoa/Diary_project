@@ -234,7 +234,7 @@
 	                title: $(this).find('.public-title').text(),
 	                content: $(this).find('.public-content').text(),
 	                date: $(this).find('.public-dateweather').text(),
-	                writerName: $(this).find('.public-author').text()
+	                name: $(this).find('.public-author').text()
 	            };
 	            posts = [post];
 	            currentPostIndex = 0;
@@ -349,7 +349,7 @@
                         success: function(response) {
                             console.log('Success:', response);
                             alert('다이어리 작성이 성공적으로 완료되었습니다.');
-                            window.location.href = 'exchange_diary.html';
+                            location.reload();
                         },
                         error: function(error) {
                             console.error('Error:', error);
@@ -365,12 +365,21 @@
         let posts = [];
 
         function loadPost(index) {
+                
             if (index >= 0 && index < posts.length) {
                 const post = posts[index];
+                
+                var date = new Date(post.date);
+                var formattedDate = date.getFullYear() + '-' +
+                    ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + date.getDate()).slice(-2) + ' ' +
+                    ('0' + date.getHours()).slice(-2) + ':' +
+                    ('0' + date.getMinutes()).slice(-2);
+                    
                 $('#my-title').text(post.title);
                 $('#my-diary-content').text(post.content);
-                $('#diary-date').text(post.date);
-                $('#writer-name').text(post.Name);
+                $('#diary-date').text("작성일: " + formattedDate);
+                $('#writer-name').text("작성자: " + post.name);
 
                 $('#prevPopupBtn').prop('disabled', index === 0);
                 $('#nextPopupBtn').prop('disabled', index === posts.length - 1);
