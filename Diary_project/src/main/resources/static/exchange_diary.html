@@ -14,6 +14,8 @@
        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
        <!-- Core theme CSS (includes Bootstrap)-->
        <link href="css/base.css?after" rel="stylesheet" />
+       
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    </head>
 
 
@@ -67,8 +69,10 @@
 		            <p id="diary-date" class="my-font-8"></p>
 		            <p id="writer-name" class="my-font-9"></p>
 		            
-		            <button type="button" id="prevPopupBtn" class="prevPopupBtn">&lt;</button>
-        			<button type="button" id="nextPopupBtn" class="nextPopupBtn">&gt;</button>
+		            <button type="button" id="firstPopupBtn" class="firstPopupBtn"><i class="fas fa-angle-double-left"></i></button>
+		            <button type="button" id="prevPopupBtn" class="prevPopupBtn"><i class="fas fa-angle-left"></i></button>
+        			<button type="button" id="nextPopupBtn" class="nextPopupBtn"><i class="fas fa-angle-right"></i></button>
+        			<button type="button" id="lastPopupBtn" class="lastPopupBtn"><i class="fas fa-angle-double-right"></i></button>
 		            <button type="submit" id="addPopupBtn" class="my-btn">교환일기 잇기</button>
 		    </div>
 		</div>
@@ -384,7 +388,7 @@
 		        }
 		    });
         
-      	//교환 일기 넘기기
+      	//교환 일기 넘기
         let currentPostIndex = 0;
         let posts = [];
 
@@ -405,9 +409,15 @@
                 $('#diary-date').text("작성일: " + formattedDate);
                 $('#writer-name').text("작성자: " + post.name);
 
-                $('#prevPopupBtn').prop('disabled', index === 0);
-                $('#nextPopupBtn').prop('disabled', index === posts.length - 1);
+                updateButtonState(index);
             }
+        }
+        
+        function updateButtonState(index) {
+            $('#prevPopupBtn').prop('disabled', index === 0).toggleClass('disabled', index === 0);
+            $('#firstPopupBtn').prop('disabled', index === 0).toggleClass('disabled', index === 0);
+            $('#nextPopupBtn').prop('disabled', index === posts.length - 1).toggleClass('disabled', index === posts.length - 1);
+            $('#lastPopupBtn').prop('disabled', index === posts.length - 1).toggleClass('disabled', index === posts.length - 1);
         }
         
         function fetchComments(exchangeNumber) {
@@ -424,6 +434,11 @@
             });
         }
         
+        $('#firstPopupBtn').click(function() {
+            currentPostIndex = 0;
+            loadPost(currentPostIndex);
+        });
+        
         $('#prevPopupBtn').click(function() {
             if (currentPostIndex > 0) {
                 currentPostIndex--;
@@ -436,6 +451,11 @@
                 currentPostIndex++;
                 loadPost(currentPostIndex);
             }
+        });
+        
+        $('#lastPopupBtn').click(function() {
+            currentPostIndex = posts.length - 1;
+            loadPost(currentPostIndex);
         });
         
         $('#exchange-popup').on('show', function() {

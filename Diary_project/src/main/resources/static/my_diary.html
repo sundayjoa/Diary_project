@@ -172,8 +172,9 @@
 	    
 	    <!-- footer -->
         <footer class="footer-section">
-            <div class="my-background footer-container">
+            <div class="text-center my-background footer-container">
             	<p class="text-center text-white">Starry Diary Project<br><br> 개발자: 전효주 </p>
+            	<a class="text-center logout" id="logout">로그아웃</a>
             </div>
         </footer>
 	    
@@ -427,8 +428,11 @@
 	                        $('#user-info').html(response.userName + ' 님');
 	                        $('#user-info').attr("href", "#");
 	                        $('#user-info').addClass('font-3');
+	                        
+	                        $('#logout').show();
 	                    } else {
 	                        $('#user-info').html('<a class="login-btn" href="login.html">로그인</a>');
+	                        $('#logout').hide();
 	                    }
 	                },
 	                error: function(xhr, status, error) {

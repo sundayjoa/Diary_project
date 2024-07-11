@@ -937,7 +937,9 @@ body{
 }
 
 .prevPopupBtn, 
-.nextPopupBtn {
+.nextPopupBtn,
+.firstPopupBtn,
+.lastPopupBtn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -948,21 +950,33 @@ body{
     color: #ccc;
 }
 
+.firstPopupBtn{
+	left: 10px;
+}
+
 .prevPopupBtn {
-    left: 20px;
+    left: 50px;
 }
 
 .nextPopupBtn {
-    right: 20px;
+    right: 50px;
+}
+
+.lastPopupBtn{
+	right: 10px;
 }
 
 .prevPopupBtn:hover,
-.nextPopupBtn:hover {
+.nextPopupBtn:hover,
+.firstPopupBtn:hover,
+.lastPopupBtn:hover {
 	background-color: gray;
 }
 
 .prevPopupBtn:disabled, 
-.nextPopupBtn:disabled {
+.nextPopupBtn:disabled,
+.firstPopupBtn:disabled,
+.lastPopupBtn:disabled {
     color: black;
     cursor: not-allowed;
 }
