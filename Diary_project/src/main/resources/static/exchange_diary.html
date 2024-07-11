@@ -67,6 +67,8 @@
 		            <p id="diary-date" class="my-font-8"></p>
 		            <p id="writer-name" class="my-font-9"></p>
 		            
+		            <button type="button" id="prevPopupBtn" class="prevPopupBtn">&lt;</button>
+        			<button type="button" id="nextPopupBtn" class="nextPopupBtn">&gt;</button>
 		            <button type="submit" id="addPopupBtn" class="my-btn">교환일기 잇기</button>
 		    </div>
 		</div>
@@ -210,7 +212,6 @@
 
 	    $(document).on('click', '.my-rectangle', function() {
 	        currentExchangeNumber = $(this).data('exchange-number');
-	        console.log("currentExchangeNumber:", currentExchangeNumber);
 	    });
 	    
 	    //WriterID 선언
@@ -228,14 +229,21 @@
 	        var content = $(this).find('.public-content').text();
 	        var date = $(this).find('.public-dateweather').text();
 	        var writer = $(this).find('.public-author').text();
-	       
-	        $('#my-title').text(title);
-	        $('#my-diary-content').html(content.replace(/\n/g, "<br>"));
-	        $('#diary-date').text("작성일: " + date);
-	        $('#writer-name').text("작성자: " + writer);
-
 	        
-	     // 팝업 표시
+	        const post = {
+	                title: $(this).find('.public-title').text(),
+	                content: $(this).find('.public-content').text(),
+	                date: $(this).find('.public-dateweather').text(),
+	                writerName: $(this).find('.public-author').text()
+	            };
+	            posts = [post];
+	            currentPostIndex = 0;
+	            loadPost(currentPostIndex);
+
+	            // 댓글 가져오기
+	            fetchComments(currentExchangeNumber);
+	        
+	     	// 팝업 표시
 	        $('#exchange-popup').show();
 	    });
 	 	
@@ -281,7 +289,7 @@
             return true;
         }
      	
-     	<!-- 일기 저장 -->
+
      	function commentForm() {
             const joinTitle = document.getElementById('joinTitle').value;
             const joinContent = document.getElementById('joinContent').value;
@@ -350,6 +358,57 @@
                     });
                 }
             });
+        });
+        
+      	//교환 일기 넘기기
+        let currentPostIndex = 0;
+        let posts = [];
+
+        function loadPost(index) {
+            if (index >= 0 && index < posts.length) {
+                const post = posts[index];
+                $('#my-title').text(post.title);
+                $('#my-diary-content').text(post.content);
+                $('#diary-date').text(post.date);
+                $('#writer-name').text(post.Name);
+
+                $('#prevPopupBtn').prop('disabled', index === 0);
+                $('#nextPopupBtn').prop('disabled', index === posts.length - 1);
+            }
+        }
+        
+        function fetchComments(exchangeNumber) {
+            $.ajax({
+                type: 'GET',
+                url: `http://localhost:8080/api/comment/posts?ExchangeNumber=${exchangeNumber}`,
+                success: function(response) {
+                	posts = posts.concat(response);
+                    loadPost(currentPostIndex);
+                },
+                error: function(error) {
+                    console.error('Error fetching posts:', error);
+                }
+            });
+        }
+        
+        $('#prevPopupBtn').click(function() {
+            if (currentPostIndex > 0) {
+                currentPostIndex--;
+                loadPost(currentPostIndex);
+            }
+        });
+
+        $('#nextPopupBtn').click(function() {
+            if (currentPostIndex < posts.length - 1) {
+                currentPostIndex++;
+                loadPost(currentPostIndex);
+            }
+        });
+        
+        $('#exchange-popup').on('show', function() {
+            if (currentExchangeNumber) {
+                fetchComments(currentExchangeNumber);
+            }
         });
         
         //교환일기 잇기 팝업창

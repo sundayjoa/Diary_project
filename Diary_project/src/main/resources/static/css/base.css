@@ -935,3 +935,35 @@ body{
 .non-display {
 	visibility: hidden;
 }
+
+.prevPopupBtn, 
+.nextPopupBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.prevPopupBtn {
+    left: 20px;
+}
+
+.nextPopupBtn {
+    right: 20px;
+}
+
+.prevPopupBtn:hover,
+.nextPopupBtn:hover {
+	background-color: gray;
+}
+
+/* 비활성화 버튼 스타일링 */
+.prevPopupBtn:disabled, 
+.nextPopupBtn:disabled {
+    color: black;
+    cursor: not-allowed;
+}

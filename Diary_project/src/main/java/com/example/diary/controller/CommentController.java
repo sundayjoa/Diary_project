@@ -1,8 +1,10 @@
 package com.example.diary.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,5 +49,10 @@ public class CommentController {
         } else {
             throw new RuntimeException("User not logged in.");
         }
+    }
+    
+    @GetMapping("/posts")
+    public List<Comment> getPosts(@RequestParam("ExchangeNumber") Long exchangeNumber) {
+        return CommentService.getPostsByExchangeNumber(exchangeNumber);
     }
 }
