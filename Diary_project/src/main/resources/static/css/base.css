@@ -961,9 +961,19 @@ body{
 	background-color: gray;
 }
 
-/* 비활성화 버튼 스타일링 */
 .prevPopupBtn:disabled, 
 .nextPopupBtn:disabled {
     color: black;
     cursor: not-allowed;
+}
+
+.logout{
+	cursor: pointer;
+	display: inline-block;
+	margin-top: 30px;
+	color: gray;
+}
+
+.logout:hover{
+	color: blue;
 }
