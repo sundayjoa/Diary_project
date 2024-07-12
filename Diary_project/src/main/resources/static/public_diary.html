@@ -151,6 +151,25 @@
 	            });
 	        });
 	        
+	      	//로그아웃
+	        $('#logout').click(function(event) {
+	        event.preventDefault();
+	        if (confirm('로그아웃 하시겠습니까?')) {
+	            $.ajax({
+	                url: '/api/session/logout',
+	                type: 'POST',
+	                success: function() {
+	                    alert('성공적으로 로그아웃 되었습니다.');
+	                    window.location.href = 'public_diary.html'; 
+	                },
+	                error: function(error) {
+	                    console.error('Error during logout:', error);
+	                    alert('로그아웃 중 오류가 발생했습니다.');
+	                }
+	            });
+	        }
+	    });
+	        
 	      //게시글 
 	        $(document).ready(function() {
 	        	//게시글 가져오기
